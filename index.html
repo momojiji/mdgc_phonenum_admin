@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>众智合数字管理平台</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" href="./static/css/layui.css" media="all">
+		<link rel="stylesheet" href="./static/css/admin.css" media="all">
+	</head>
+	<body class="layui-layout-body">
+		<div id="LAY_app">
+			<div class="layui-layout layui-layout-admin">
+				<div class="layui-header">
+					<!-- 头部区域 -->
+					<ul class="layui-nav layui-layout-left">
+						<li class="layui-nav-item layadmin-flexible" lay-unselect>
+							<a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
+								<i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+							</a>
+						</li>
+						<li class="layui-nav-item layui-hide-xs" lay-unselect>
+							<a href="http://www.baidu.com" target="_blank" title="前台">
+								<i class="layui-icon layui-icon-website"></i>
+							</a>
+						</li>
+						<li class="layui-nav-item" lay-unselect>
+							<a href="javascript:;" layadmin-event="refresh" title="刷新">
+								<i class="layui-icon layui-icon-refresh-3"></i>
+							</a>
+						</li>
+					</ul>
+					<ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+						<li class="layui-nav-item" lay-unselect>
+							<a lay-href="app/message/index.html" layadmin-event="message" lay-text="消息中心">
+								<i class="layui-icon layui-icon-notice"></i>
+								<!-- 如果有新消息，则显示小圆点 -->
+								<span class="layui-badge-dot"></span>
+							</a>
+						</li>
+						<li class="layui-nav-item layui-hide-xs" lay-unselect>
+							<a href="javascript:;" layadmin-event="theme">
+								<i class="layui-icon layui-icon-theme"></i>
+							</a>
+						</li>
+						<li class="layui-nav-item layui-hide-xs" lay-unselect>
+							<a href="javascript:;" layadmin-event="note">
+								<i class="layui-icon layui-icon-note"></i>
+							</a>
+						</li>
+						<li class="layui-nav-item layui-hide-xs" lay-unselect>
+							<a href="javascript:;" layadmin-event="fullscreen">
+								<i class="layui-icon layui-icon-screen-full"></i>
+							</a>
+						</li>
+						<li class="layui-nav-item layui-hide-xs" lay-unselect>
+							<img class="roundness-img " src="./static/imgs/portrait.png" width="39" height="39">
+						</li>
+						<li class="layui-nav-item" lay-unselect>
+							<a href="javascript:;">
+								<cite>小刀</cite>
+							</a>
+							<dl class="layui-nav-child">
+								<dd><a lay-href="set/user/info.html">基本资料</a></dd>
+								<dd><a lay-href="set/user/password.html">修改密码</a></dd>
+								<hr>
+								<dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
+							</dl>
+						</li>
+						<li class="layui-nav-item layui-hide-xs" lay-unselect>
+							<a layadmin-event="logout">
+								<i class="layui-icon layui-icon-logout"></i>
+							</a>
+						</li>
+						<!-- 
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>
+          </li> -->
+					</ul>
+				</div>
+
+				<!-- 侧边菜单 -->
+				<div class="layui-side layui-side-menu">
+					<div class="layui-side-scroll">
+						<div class="layui-logo" lay-href="home/home_platform.html">
+							<span>众智合数字管理平台</span>
+						</div>
+
+						<ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
+							<li data-name="home" class="layui-nav-item layui-nav-itemed">
+								<a href="javascript:;" lay-tips="首页" lay-direction="2">
+									<i class="layui-icon layui-icon-home"></i>
+									<cite>首页</cite>
+								</a>
+								<dl class="layui-nav-child">
+									<dd data-name="console" class="layui-this">
+										<a lay-href="home/home_platform.html">首页（平台）</a>
+									</dd>
+									<dd data-name="console">
+										<a lay-href="home/home_supplier.html">首页（供应商）</a>
+									</dd>
+									<dd data-name="console">
+										<a lay-href="home/home_agent.html">首页（代理商）</a>
+									</dd>
+								</dl>
+							</li>
+							<li data-name="order" class="layui-nav-item">
+								<a href="javascript:;" lay-tips="订单管理" lay-direction="2">
+									<i class="layui-icon layui-icon-align-center"></i>
+									<cite>订单管理</cite>
+								</a>
+								<dl class="layui-nav-child">
+									<dd data-name="order-plat">
+										<a href="javascript:;">平台</a>
+										<dl class="layui-nav-child">
+											<dd data-name="order-plat-list"><a lay-href="component/grid/list.html">订单列表</a></dd>
+											<dd data-name="order-plat-diylist"><a lay-href="component/grid/mobile.html">定制订单</a></dd>
+											<dd data-name="order-plat-recyle"><a lay-href="component/grid/mobile-pc.html">回收订单</a></dd>
+											<dd data-name="order-plat-statistics"><a lay-href="component/grid/mobile-pc.html">数据统计</a></dd>
+										</dl>
+									</dd>
+									<dd data-name="order-supplier">
+										<a href="javascript:;">供应商</a>
+										<dl class="layui-nav-child">
+											<dd data-name="order-supplier-list"><a lay-href="component/grid/list.html">订单列表</a></dd>
+											<dd data-name="order-supplier-diylist"><a lay-href="component/grid/mobile.html">定制订单</a></dd>
+											<dd data-name="order-supplier-recyle"><a lay-href="component/grid/mobile-pc.html">回收订单</a></dd>
+											<dd data-name="order-supplier-statistics"><a lay-href="component/grid/mobile-pc.html">数据统计</a></dd>
+										</dl>
+									</dd>
+									<dd data-name="order-agent">
+										<a href="javascript:;">代理商</a>
+										<dl class="layui-nav-child">
+											<dd data-name="order-agent-list"><a lay-href="component/grid/list.html">订单列表</a></dd>
+											<dd data-name="order-agent-diylist"><a lay-href="component/grid/mobile.html">定制订单</a></dd>
+											<dd data-name="order-agent-recyle"><a lay-href="component/grid/mobile-pc.html">回收订单</a></dd>
+											<dd data-name="order-agent-statistics"><a lay-href="component/grid/mobile-pc.html">数据统计</a></dd>
+										</dl>
+									</dd>
+								</dl>
+							</li>
+
+							<li data-name="bill" class="layui-nav-item">
+								<a href="javascript:;" lay-tips="对账管理" lay-direction="2">
+									<i class="layui-icon layui-icon-list"></i>
+									<cite>对账管理</cite>
+								</a>
+								<dl class="layui-nav-child">
+									<dd data-name="bill_supplier">
+										<a href="javascript:;">供应商对账管理</a>
+										<dl class="layui-nav-child">
+											<dd data-name="bill_supplier_info"><a lay-href="component/grid/list.html">对账管理-查看详情</a></dd>
+											<dd data-name="bill_supplier_audit"><a lay-href="component/grid/mobile.html">提现审核</a></dd>
+										</dl>
+									</dd>
+									<dd data-name="bill_agent">
+										<a href="javascript:;">代理商对账管理</a>
+										<dl class="layui-nav-child">
+											<dd data-name="bill_agent_info"><a lay-href="component/grid/list.html">对账管理-查看详情</a></dd>
+											<dd data-name="bill_agent_audit"><a lay-href="component/grid/mobile.html">提现审核</a></dd>
+										</dl>
+									</dd>
+								</dl>
+							</li>
+
+							<li data-name="phone_number" class="layui-nav-item">
+								<a href="javascript:;" lay-tips="号码管理" lay-direction="2">
+									<i class="layui-icon layui-icon-cellphone-fine"></i>
+									<cite>号码管理</cite>
+								</a>
+								<dl class="layui-nav-child">
+									<dd data-name="phone_number_public">
+										<a lay-href="home/home_platform.html">号码管理（公共池）</a>
+									</dd>
+									<dd data-name="phone_number_my">
+										<a lay-href="home/home_platform.html">号码管理（我的号码）</a>
+									</dd>
+								</dl>
+							</li>
+
+							<li data-name="supplier" class="layui-nav-item">
+								<a href="javascript:;" lay-href="//www.layui.com/admin/#get" lay-tips="供应商管理" lay-direction="2">
+									<i class="layui-icon layui-icon-group"></i>
+									<cite>供应商管理</cite>
+								</a>
+							</li>
+
+							<li data-name="agent" class="layui-nav-item">
+								<a href="javascript:;" lay-tips="代理商管理" lay-direction="2">
+									<i class="layui-icon layui-icon-user"></i>
+									<cite>代理商管理</cite>
+								</a>
+								<dl class="layui-nav-child">
+									<dd data-name="agent_list">
+										<a lay-href="home/home_platform.html">代理商列表</a>
+									</dd>
+									<dd data-name="agent_audit">
+										<a lay-href="home/home_platform.html">我的审核（平台审核）</a>
+									</dd>
+									<dd data-name="agent_apply">
+										<a lay-href="home/home_platform.html">代理申请</a>
+									</dd>
+								</dl>
+							</li>
+
+
+							<li data-name="information" class="layui-nav-item">
+								<a href="javascript:;" lay-tips="资讯管理" lay-direction="2">
+									<i class="layui-icon layui-icon-read"></i>
+									<cite>资讯管理</cite>
+								</a>
+								<dl class="layui-nav-child">
+									<dd data-name="information_list">
+										<a lay-href="home/home_platform.html">资讯列表</a>
+									</dd>
+								</dl>
+							</li>
+
+							<li data-name="set" class="layui-nav-item">
+								<a href="javascript:;" lay-tips="站点配置" lay-direction="2">
+									<i class="layui-icon layui-icon-set"></i>
+									<cite>站点配置</cite>
+								</a>
+								<dl class="layui-nav-child">
+									<dd data-name="set-basics">
+										<a lay-href="home/home_platform.html">基础设置</a>
+									</dd>
+									<dd data-name="set-advanced">
+										<a lay-href="home/home_platform.html">高级设置</a>
+									</dd>
+									<dd data-name="set-custom">
+										<a lay-href="home/home_platform.html">自定义设置</a>
+									</dd>
+									<dd data-name="set-banner">
+										<a lay-href="home/home_platform.html">移动端轮播图设置</a>
+									</dd>
+								</dl>
+							</li>
+
+							<li data-name="capital" class="layui-nav-item">
+								<a href="javascript:;" lay-tips="资金池" lay-direction="2">
+									<i class="layui-icon layui-icon-rmb"></i>
+									<cite>资金池</cite>
+								</a>
+								<dl class="layui-nav-child">
+									<dd data-name="capital_income">
+										<a lay-href="home/home_platform.html">我的收入</a>
+									</dd>
+
+
+									<dd data-name="capital_capital">
+										<a href="javascript:;">资金池</a>
+										<dl class="layui-nav-child">
+											<dd data-name="capital_capital_plat"><a lay-href="component/grid/list.html">资金池(平台)</a></dd>
+											<dd data-name="capital_capital_supplier"><a lay-href="component/grid/mobile.html">资金池(供应商)</a></dd>
+											<dd data-name="capital_capital_agent"><a lay-href="component/grid/mobile-pc.html">资金池(代理商)</a></dd>
+										</dl>
+									</dd>
+
+								</dl>
+							</li>
+
+
+						</ul>
+					</div>
+				</div>
+
+				<!-- 页面标签 -->
+				<div class="layadmin-pagetabs" id="LAY_app_tabs">
+					<div class="layui-icon layadmin-tabs-control layui-icon-prev" layadmin-event="leftPage"></div>
+					<div class="layui-icon layadmin-tabs-control layui-icon-next" layadmin-event="rightPage"></div>
+					<div class="layui-icon layadmin-tabs-control layui-icon-down">
+						<ul class="layui-nav layadmin-tabs-select" lay-filter="layadmin-pagetabs-nav">
+							<li class="layui-nav-item" lay-unselect>
+								<a href="javascript:;"></a>
+								<dl class="layui-nav-child layui-anim-fadein">
+									<dd layadmin-event="closeThisTabs"><a href="javascript:;">关闭当前标签页</a></dd>
+									<dd layadmin-event="closeOtherTabs"><a href="javascript:;">关闭其它标签页</a></dd>
+									<dd layadmin-event="closeAllTabs"><a href="javascript:;">关闭全部标签页</a></dd>
+								</dl>
+							</li>
+						</ul>
+					</div>
+					<div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
+						<ul class="layui-tab-title" id="LAY_app_tabsheader">
+							<li lay-id="home/home_platform.html" lay-attr="home/home_platform"><i class="layui-icon layui-icon-home"></i></li>
+						</ul>
+					</div>
+				</div>
+
+
+				<!-- 主体内容 -->
+				<div class="layui-body" id="LAY_app_body">
+					<div class="layadmin-tabsbody-item layui-show">
+						<iframe src="home/home_platform.html" frameborder="0" class="layadmin-iframe"></iframe>
+					</div>
+				</div>
+
+				<!-- 辅助元素，一般用于移动设备下遮罩 -->
+				<div class="layadmin-body-shade" layadmin-event="shade"></div>
+			</div>
+		</div>
+
+		<script src="./static/layui/layui.js"></script>
+		<script>
+			layui.config({
+				base: './static/' //静态资源所在路径
+			}).extend({
+				index: 'lib/index' //主入口模块
+			}).use('index');
+		</script>
+
+	</body>
+</html>
