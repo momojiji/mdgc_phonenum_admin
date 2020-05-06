@@ -1409,3 +1409,8 @@ html {
 .roundness-img {
 	border-radius: 50%;
 }
+
+.kuaijie{
+	background-color: #FFFFFF;
+	height: 85px !important;
+}
