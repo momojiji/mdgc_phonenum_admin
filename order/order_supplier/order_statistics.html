@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>订单管理（平台）- 回收订单</title>
+		<title>订单管理（供应商）- 数据统计</title>
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -103,80 +103,6 @@
 									<div class="layui-form-item table-search-form">
 										<div class="layui-inline">
 											<div class="layui-input-inline">
-												<input type="text" class="layui-input" id="supplier_sales_list_search_year" placeholder="选择年份">
-											</div>
-										</div>
-										<div class="layui-inline">
-											<div class="layui-input-inline">
-												<select name="supplier_sales_list_search_month" id="supplier_sales_list_search_month">
-													<option value="">全部</option>
-													<option value="1">1月</option>
-													<option value="2">2月</option>
-													<option value="3">3月</option>
-													<option value="4">4月</option>
-													<option value="5">5月</option>
-													<option value="6">6月</option>
-													<option value="7">7月</option>
-													<option value="8">8月</option>
-													<option value="9">9月</option>
-													<option value="10">10月</option>
-													<option value="10">11月</option>
-													<option value="10">12月</option>
-												</select>
-											</div>
-										</div>
-										<div class="layui-inline">
-											<button class="layui-btn" id="supplier_sales_list_search_btn">搜索</button>
-										</div>
-									</div>
-								</div>
-								<div id="supplier_sales_list_container" style="height:400px;"></div>
-							</div>
-						</div>
-						<!-- 供应商收入榜单 start -->
-						<div class="layui-col-md6">
-							<div class="layui-card">
-								<div class="layui-form layui-card-header layuiadmin-card-header-auto">
-									<div class="layui-form-item table-search-form">
-										<div class="layui-inline">
-											<div class="layui-input-inline">
-												<input type="text" class="layui-input" id="supplier_income_list_search_year" placeholder="选择年份">
-											</div>
-										</div>
-										<div class="layui-inline">
-											<div class="layui-input-inline">
-												<select name="supplier_income_list_search_month" id="supplier_income_list_search_month">
-													<option value="">全部</option>
-													<option value="1">1月</option>
-													<option value="2">2月</option>
-													<option value="3">3月</option>
-													<option value="4">4月</option>
-													<option value="5">5月</option>
-													<option value="6">6月</option>
-													<option value="7">7月</option>
-													<option value="8">8月</option>
-													<option value="9">9月</option>
-													<option value="10">10月</option>
-													<option value="10">11月</option>
-													<option value="10">12月</option>
-												</select>
-											</div>
-										</div>
-										<div class="layui-inline">
-											<button class="layui-btn" id="supplier_income_list_search_btn">搜索</button>
-										</div>
-									</div>
-								</div>
-								<div id="supplier_income_list_container" style="height:400px;"></div>
-							</div>
-						</div>
-						<!-- 代理商销售榜单 start -->
-						<div class="layui-col-md6">
-							<div class="layui-card">
-								<div class="layui-form layui-card-header layuiadmin-card-header-auto">
-									<div class="layui-form-item table-search-form">
-										<div class="layui-inline">
-											<div class="layui-input-inline">
 												<input type="text" class="layui-input" id="agent_sales_list_search_year" placeholder="选择年份">
 											</div>
 										</div>
@@ -207,41 +133,41 @@
 								<div id="agent_sales_list_container" style="height:400px;"></div>
 							</div>
 						</div>
-						<!-- 供应商利润TOP10 start -->
+						<!-- 订单销售趋势图 start -->
 						<div class="layui-col-md6">
 							<div class="layui-card">
 								<div class="layui-form layui-card-header layuiadmin-card-header-auto">
 									<div class="layui-form-item table-search-form">
 										<div class="layui-inline">
 											<div class="layui-input-inline">
-												<input type="text" class="layui-input" id="agent_profit_list_search_year" placeholder="选择年份">
+												<input type="text" class="layui-input" id="order_trend_search_year" placeholder="选择年份">
 											</div>
 										</div>
 										<div class="layui-inline">
-											<div class="layui-input-inline">
-												<select name="agent_sales_list_search_month" id="agent_profit_list_search_month">
-													<option value="">全部</option>
-													<option value="1">1月</option>
-													<option value="2">2月</option>
-													<option value="3">3月</option>
-													<option value="4">4月</option>
-													<option value="5">5月</option>
-													<option value="6">6月</option>
-													<option value="7">7月</option>
-													<option value="8">8月</option>
-													<option value="9">9月</option>
-													<option value="10">10月</option>
-													<option value="10">11月</option>
-													<option value="10">12月</option>
-												</select>
-											</div>
-										</div>
-										<div class="layui-inline">
-											<button class="layui-btn" id="agent_profit_list_search_btn">搜索</button>
+											<button class="layui-btn" id="order_trend_search_btn">搜索</button>
 										</div>
 									</div>
 								</div>
-								<div id="agent_profit_list_container" style="height:400px;"></div>
+								<div id="order_trend_container" style="height:400px;"></div>
+							</div>
+						</div>
+						<!-- 我的收入变化趋势图 start -->
+						<div class="layui-col-md12">
+							<div class="layui-card">
+								<div class="layui-form layui-card-header layuiadmin-card-header-auto">
+									<div class="layui-form-item table-search-form">
+										<div class="layui-inline">
+											<div class="layui-input-inline">
+												<input type="text" class="layui-input" id="my_income_trend_search_year" placeholder="选择年份">
+											</div>
+										</div>
+										
+										<div class="layui-inline">
+											<button class="layui-btn" id="my_income_trend_search_btn">搜索</button>
+										</div>
+									</div>
+								</div>
+								<div id="my_income_trend_container" style="height:400px;"></div>
 							</div>
 						</div>
 					</div>
@@ -259,86 +185,39 @@
 				layui.use('laydate', function() {
 					var laydate = layui.laydate;
 					laydate.render({
-						elem: '#supplier_sales_list_search_year',
-						type: 'year'
-					});
-					laydate.render({
-						elem: '#supplier_income_list_search_year',
-						type: 'year'
-					});
-					laydate.render({
 						elem: '#agent_sales_list_search_year',
 						type: 'year'
 					});
 					laydate.render({
-						elem: '#agent_profit_list_search_year',
+						elem: '#order_trend_search_year',
 						type: 'year'
 					});
+					laydate.render({
+						elem: '#my_income_trend_search_year',
+						type: 'year'
+					});
+					
 				});
 				//初始化数据
-				getSupplierSalesListData();
-				getSupplierIncomeListData();
 				getAgentSalesListData();
-				getAgentProfitListData();
+				getOrderTrendData();
+				getMyIncomeTrendData();
 
 				//点击搜索
-				$('#supplier_sales_list_search_btn').on('click', function() {
-					getSupplierSalesListData();
-				});
-				$('#supplier_income_list_search_btn').on('click', function() {
-					getSupplierIncomeListData();
-				});
 				$('#agent_sales_list_search_btn').on('click', function() {
 					getAgentSalesListData();
 				});
-				$('#agent_profit_list_search_btn').on('click', function() {
-					getAgentProfitListData();
+				$('#order_trend_search_btn').on('click', function() {
+					getOrderTrendData();
+				});
+				$('#my_income_trend_search_btn').on('click', function() {
+					getMyIncomeTrendData();
 				});
 
 				//获取数据
-				function getSupplierSalesListData() {
-					$.ajax({
-						url: "/mdgc/static/json/order/platform_statistics_agent_sales_list.js",
-						type: 'get',
-						data: {
-							search_year: $("#supplier_sales_list_search_year").val(),
-							search_month: $("#supplier_sales_list_search_month").val()
-						},
-						dataType: 'json',
-						success: function(res) {
-							console.log(res);
-							if (res.code == 0) {
-								showSupplierSalesList(res.data);
-							} else {
-								layer.msg("代理商销售榜接口请求失败");
-							}
-						}
-					});
-				}
-
-				function getSupplierIncomeListData() {
-					$.ajax({
-						url: "/mdgc/static/json/order/platform_statistics_agent_sales_list.js",
-						type: 'get',
-						data: {
-							search_year: $("#supplier_income_list_search_year").val(),
-							search_month: $("#supplier_income_list_search_month").val()
-						},
-						dataType: 'json',
-						success: function(res) {
-							console.log(res);
-							if (res.code == 0) {
-								showSupplierIncomeList(res.data);
-							} else {
-								layer.msg("供应商销售榜接口请求失败");
-							}
-						}
-					});
-				}
-
 				function getAgentSalesListData() {
 					$.ajax({
-						url: "/mdgc/static/json/order/platform_statistics_agent_sales_list.js",
+						url: "/mdgc/static/json/order/supplier_statistics_agent_sales_list.js",
 						type: 'get',
 						data: {
 							search_year: $("#agent_sales_list_search_year").val(),
@@ -346,7 +225,6 @@
 						},
 						dataType: 'json',
 						success: function(res) {
-							console.log(res);
 							if (res.code == 0) {
 								showAgentSalesList(res.data);
 							} else {
@@ -355,30 +233,46 @@
 						}
 					});
 				}
-
-				function getAgentProfitListData() {
+				
+				function getOrderTrendData(){
 					$.ajax({
-						url: "/mdgc/static/json/order/platform_statistics_agent_sales_list.js",
+						url: "/mdgc/static/json/order/supplier_statistics_agent_order_trend.js",
 						type: 'get',
 						data: {
-							search_year: $("#agent_profit_list_search_year").val(),
-							search_month: $("#agent_profit_list_search_month").val()
+							search_year: $("#order_trend_search_year").val(),
 						},
 						dataType: 'json',
 						success: function(res) {
-							console.log(res);
 							if (res.code == 0) {
-								showAgentProfitList(res.data);
+								showOrderTrend(res.data);
 							} else {
-								layer.msg("代理商利润接口请求失败");
+								layer.msg("订单销售趋势接口请求失败");
+							}
+						}
+					});
+				}
+				
+				function getMyIncomeTrendData(){
+					$.ajax({
+						url: "/mdgc/static/json/order/supplier_statistics_my_income_trend.js",
+						type: 'get',
+						data: {
+							search_year: $("#my_income_trend_search_year").val(),
+						},
+						dataType: 'json',
+						success: function(res) {
+							if (res.code == 0) {
+								showMyIncomeTrend(res.data);
+							} else {
+								layer.msg("订单销售趋势接口请求失败");
 							}
 						}
 					});
 				}
 
 				//展示图表
-				function showSupplierSalesList(data) {
-					Highcharts.chart('supplier_sales_list_container', {
+				function showAgentSalesList(data) {
+					Highcharts.chart('agent_sales_list_container', {
 						chart: {
 							type: 'column'
 						},
@@ -419,128 +313,69 @@
 					});
 				}
 
-				function showSupplierIncomeList(data) {
-					Highcharts.chart('supplier_income_list_container', {
+				function showOrderTrend(data){
+					Highcharts.chart('order_trend_container', {
 						chart: {
-							type: 'column'
+							type: 'line'
 						},
-						colors: ['#ff421d'],
+						colors: ['#00ffff'],
 						title: {
-							text: '供应商收入TOP10'
+							text: '订单销售趋势图'
 						},
 						xAxis: {
-							type: 'category',
-							labels: {
-								rotation: -45 // 设置轴标签旋转角度
-							}
+							categories: data.date
 						},
 						yAxis: {
-							min: 0,
+							title: {
+								text: '数量'
+							}
+						},
+						plotOptions: {
+							line: {
+								dataLabels: {
+									enabled: true // 开启数据标签         
+								},
+								// 关闭鼠标跟踪，对应的提示框、点击事件会失效
+								enableMouseTracking: false
+							}
+						},
+						series: [{
+							name: '订单销售趋势图',
+							data: data.num
+						}]
+					});
+				}
+				
+				function showMyIncomeTrend(data){
+					var chart = Highcharts.chart('my_income_trend_container', {
+						chart: {
+							type: 'line'
+						},
+						title: {
+							text: '我的收入变化趋势图'
+						},
+						colors: ['#ff421d','#00ffff'],
+						xAxis: {
+							categories: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+						},
+						yAxis: {
 							title: {
 								text: '收入'
 							}
 						},
-						legend: {
-							enabled: false
-						},
-						tooltip: {
-							pointFormat: '收入: <b>{point.y:.1f}</b>'
-						},
-						series: [{
-							name: '收入',
-							data: data,
-							dataLabels: {
-								enabled: true,
-								rotation: -90,
-								color: '#FFFFFF',
-								align: 'right',
-								format: '{point.y:.1f}', // :.1f 为保留 1 位小数
-								y: 10
+						plotOptions: {
+							line: {
+								dataLabels: {
+									// 开启数据标签
+									enabled: true          
+								},
+								// 关闭鼠标跟踪，对应的提示框、点击事件会失效
+								enableMouseTracking: false
 							}
-						}]
+						},
+						series: data
 					});
-				}
 
-				function showAgentSalesList(data) {
-					Highcharts.chart('agent_sales_list_container', {
-						chart: {
-							type: 'column'
-						},
-						title: {
-							text: '代理商销售榜TOP10'
-						},
-						xAxis: {
-							type: 'category',
-							labels: {
-								rotation: -45 // 设置轴标签旋转角度
-							}
-						},
-						yAxis: {
-							min: 0,
-							title: {
-								text: '销售量'
-							}
-						},
-						legend: {
-							enabled: false
-						},
-						tooltip: {
-							pointFormat: '销售量: <b>{point.y:.1f}</b>'
-						},
-						series: [{
-							name: '销售量',
-							data: data,
-							dataLabels: {
-								enabled: true,
-								rotation: -90,
-								color: '#FFFFFF',
-								align: 'right',
-								format: '{point.y:.1f}', // :.1f 为保留 1 位小数
-								y: 10
-							}
-						}]
-					});
-				}
-
-				function showAgentProfitList(data) {
-					Highcharts.chart('agent_profit_list_container', {
-						chart: {
-							type: 'column'
-						},
-						title: {
-							text: '代理商利润TOP10'
-						},
-						xAxis: {
-							type: 'category',
-							labels: {
-								rotation: -45 // 设置轴标签旋转角度
-							}
-						},
-						yAxis: {
-							min: 0,
-							title: {
-								text: '利润'
-							}
-						},
-						legend: {
-							enabled: false
-						},
-						tooltip: {
-							pointFormat: '利润: <b>{point.y:.1f}</b>'
-						},
-						series: [{
-							name: '利润',
-							data: data,
-							dataLabels: {
-								enabled: true,
-								rotation: -90,
-								color: '#FFFFFF',
-								align: 'right',
-								format: '{point.y:.1f}', // :.1f 为保留 1 位小数
-								y: 10
-							}
-						}]
-					});
 				}
 			</script>
 	</body>
