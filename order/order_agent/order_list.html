@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>订单管理（平台）- 订单列表</title>
+		<title>订单管理（代理商）- 订单列表</title>
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -15,24 +15,6 @@
 			<div class="layui-card">
 				<div class="layui-form layui-card-header layuiadmin-card-header-auto">
 					<div class="layui-form-item table-search-form">
-						<div class="layui-inline">
-							<label class="layui-form-label">供应商名称</label>
-							<div class="layui-input-inline">
-								<select name="search_supplier" id="search_supplier" lay-search="">
-									<option value="">全部</option>
-									<option value="1">供应商1</option>
-									<option value="2">供应商2</option>
-									<option value="3">供应商3</option>
-									<option value="4">供应商4</option>
-									<option value="5">供应商5</option>
-									<option value="6">供应商6</option>
-									<option value="7">供应商7</option>
-									<option value="8">供应商8</option>
-									<option value="9">供应商9</option>
-									<option value="10">供应商10</option>
-								</select>
-							</div>
-						</div>
 						<div class="layui-inline">
 							<label class="layui-form-label">代理商名称</label>
 							<div class="layui-input-inline">
@@ -129,10 +111,10 @@
 				var table = layui.table;
 				table.render({
 					elem: '#LAY_table_order',
-					url: '/mdgc/static/json/order/platform_order_list.js',
+					url: '/mdgc/static/json/order/supplier_order_list.js',
 					toolbar: '#toolbar', //开启头部工具栏，并为其绑定左侧模板
 					defaultToolbar: ['filter', 'exports', 'print'],
-					title: '订单表',
+					title: '订单列表',
 					id: 'orderReload',
 					cols: [
 						[{
@@ -141,39 +123,38 @@
 						}, {
 							field: 'order_id',
 							title: '订单编号',
-							width:150,
-							fixed: true
 						}, {
 							field: 'goods_id',
 							title: '商品编号',
-							width:150,
-							fixed: true,
+						}, {
+							field: 'floor_price',
+							title: '底价',
 						}, {
 							field: 'pay_money',
-							title: '支付金额',
-							width:100
-						}, {
-							field: 'buyer',
-							title: '买家'
+							title: '交易金额（元）',
 						}, {
 							field: 'agent',
 							title: '代理商',
-						}, {
-							field: 'supplier',
-							title: '供应商'
+						},{
+							field: 'agent_level',
+							title: '代理商等级',
 						}, {
 							field: 'order_status',
 							title: '订单状态',
-							width:100,
 							templet: '#orderStatusTpl'
+						},{
+							field: 'agent_profit',
+							title: '代理商利润',
+						},{
+							field: 'my_income',
+							title: '我的收入',
 						}, {
 							field: 'create_time',
-							title: '提交时间'
+							title: '提交时间',
 						}, {
 							fixed: 'right',
 							title: '操作',
 							toolbar: '#opbar',
-							width: 150
 						}]
 					],
 					page: true
@@ -183,7 +164,6 @@
 					active = {
 						reload: function() {
 
-							var search_supplier = $('#search_supplier');
 							var search_agent = $('#search_agent');
 							var search_order_status = $('#search_order_status');
 							var search_create_time = $('#search_create_time');
@@ -197,8 +177,6 @@
 									curr: 1 //重新从第 1 页开始
 								},
 								where: {
-
-									search_supplier: search_supplier.val(),
 									search_agent: search_agent.val(),
 									search_order_status: search_order_status.val(),
 									search_create_time: search_create_time.val(),
@@ -206,7 +184,6 @@
 									search_price_max: search_price_max.val(),
 									search_order_id: search_order_id.val(),
 									search_goods_id: search_goods_id.val(),
-
 								}
 							}, 'data');
 						}

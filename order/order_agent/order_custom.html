@@ -15,42 +15,7 @@
 			<div class="layui-card">
 				<div class="layui-form layui-card-header layuiadmin-card-header-auto">
 					<div class="layui-form-item table-search-form">
-						<div class="layui-inline">
-							<label class="layui-form-label">供应商名称</label>
-							<div class="layui-input-inline">
-								<select name="search_supplier" id="search_supplier" lay-search="">
-									<option value="">全部</option>
-									<option value="1">供应商1</option>
-									<option value="2">供应商2</option>
-									<option value="3">供应商3</option>
-									<option value="4">供应商4</option>
-									<option value="5">供应商5</option>
-									<option value="6">供应商6</option>
-									<option value="7">供应商7</option>
-									<option value="8">供应商8</option>
-									<option value="9">供应商9</option>
-									<option value="10">供应商10</option>
-								</select>
-							</div>
-						</div>
-						<div class="layui-inline">
-							<label class="layui-form-label">代理商名称</label>
-							<div class="layui-input-inline">
-								<select name="search_agent" id="search_agent" lay-search="">
-									<option value="">全部</option>
-									<option value="1">代理商1</option>
-									<option value="2">代理商2</option>
-									<option value="3">代理商3</option>
-									<option value="4">代理商4</option>
-									<option value="5">代理商5</option>
-									<option value="6">代理商6</option>
-									<option value="7">代理商7</option>
-									<option value="8">代理商8</option>
-									<option value="9">代理商9</option>
-									<option value="10">代理商10</option>
-								</select>
-							</div>
-						</div>
+						
 						<div class="layui-inline">
 							<label class="layui-form-label">订单状态</label>
 							<div class="layui-input-inline">
@@ -68,16 +33,7 @@
 								<input type="text" class="layui-input" id="search_create_time" name="search_create_time" placeholder=" - ">
 							</div>
 						</div>
-						<div class="layui-inline">
-							<label class="layui-form-label">订单金额</label>
-							<div class="layui-input-inline" style="width: 100px;">
-								<input type="text" name="search_price_min" id="search_price_min" placeholder="低价" autocomplete="off" class="layui-input">
-							</div>
-							<div class="layui-form-mid">-</div>
-							<div class="layui-input-inline" style="width: 100px;">
-								<input type="text" name="search_price_max" id="search_price_max" placeholder="高价" autocomplete="off" class="layui-input">
-							</div>
-						</div>
+						
 						<div class="layui-inline">
 							<label class="layui-form-label">订单号</label>
 							<div class="layui-input-inline">
@@ -85,9 +41,9 @@
 							</div>
 						</div>
 						<div class="layui-inline">
-							<label class="layui-form-label">商品号码</label>
+							<label class="layui-form-label">卖家id</label>
 							<div class="layui-input-inline">
-								<input type="text" name="search_goods_id" id="search_goods_id" autocomplete="off" class="layui-input">
+								<input type="text" name="search_seller_id" id="search_seller_id" autocomplete="off" class="layui-input">
 							</div>
 						</div>
 
@@ -188,30 +144,20 @@
 					active = {
 						reload: function() {
 
-							var search_supplier = $('#search_supplier');
-							var search_agent = $('#search_agent');
 							var search_order_status = $('#search_order_status');
 							var search_create_time = $('#search_create_time');
-							var search_price_min = $('#search_price_min');
-							var search_price_max = $('#search_price_max');
 							var search_order_id = $('#search_order_id');
-							var search_goods_id = $('#search_goods_id');
+							var search_seller_id = $('#search_seller_id');
 							//执行重载
 							table.reload('orderReload', {
 								page: {
 									curr: 1 //重新从第 1 页开始
 								},
 								where: {
-
-									search_supplier: search_supplier.val(),
-									search_agent: search_agent.val(),
 									search_order_status: search_order_status.val(),
 									search_create_time: search_create_time.val(),
-									search_price_min: search_price_min.val(),
-									search_price_max: search_price_max.val(),
 									search_order_id: search_order_id.val(),
-									search_goods_id: search_goods_id.val(),
-
+									search_seller_id: search_seller_id.val(),
 								}
 							}, 'data');
 						}
