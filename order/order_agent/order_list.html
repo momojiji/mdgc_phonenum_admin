@@ -2,8 +2,236 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>订单管理（平台）- 订单列表</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+		<link rel="stylesheet" href="../../static/style/admin.css" media="all">
 	</head>
 	<body>
+
+		<div class="layui-fluid">
+			<div class="layui-card">
+				<div class="layui-form layui-card-header layuiadmin-card-header-auto">
+					<div class="layui-form-item table-search-form">
+						<div class="layui-inline">
+							<label class="layui-form-label">供应商名称</label>
+							<div class="layui-input-inline">
+								<select name="search_supplier" id="search_supplier" lay-search="">
+									<option value="">全部</option>
+									<option value="1">供应商1</option>
+									<option value="2">供应商2</option>
+									<option value="3">供应商3</option>
+									<option value="4">供应商4</option>
+									<option value="5">供应商5</option>
+									<option value="6">供应商6</option>
+									<option value="7">供应商7</option>
+									<option value="8">供应商8</option>
+									<option value="9">供应商9</option>
+									<option value="10">供应商10</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">代理商名称</label>
+							<div class="layui-input-inline">
+								<select name="search_agent" id="search_agent" lay-search="">
+									<option value="">全部</option>
+									<option value="1">代理商1</option>
+									<option value="2">代理商2</option>
+									<option value="3">代理商3</option>
+									<option value="4">代理商4</option>
+									<option value="5">代理商5</option>
+									<option value="6">代理商6</option>
+									<option value="7">代理商7</option>
+									<option value="8">代理商8</option>
+									<option value="9">代理商9</option>
+									<option value="10">代理商10</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">订单状态</label>
+							<div class="layui-input-inline">
+								<select name="search_order_status" id="search_order_status" lay-search="">
+									<option value="">全部</option>
+									<option value="1">待支付</option>
+									<option value="2">已完成</option>
+									<option value="3">已取消</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">提交时间</label>
+							<div class="layui-input-inline">
+								<input type="text" class="layui-input" id="search_create_time" name="search_create_time" placeholder=" - ">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">订单金额</label>
+							<div class="layui-input-inline" style="width: 100px;">
+								<input type="text" name="search_price_min" id="search_price_min" placeholder="低价" autocomplete="off" class="layui-input">
+							</div>
+							<div class="layui-form-mid">-</div>
+							<div class="layui-input-inline" style="width: 100px;">
+								<input type="text" name="search_price_max" id="search_price_max" placeholder="高价" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">订单号</label>
+							<div class="layui-input-inline">
+								<input type="text" name="search_order_id" id="search_order_id" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">商品号码</label>
+							<div class="layui-input-inline">
+								<input type="text" name="search_goods_id" id="search_goods_id" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+
+						<div class="layui-inline">
+							<button class="layui-btn" id="search-btn" data-type="reload">搜索</button>
+						</div>
+					</div>
+				</div>
+				<table class="layui-hide" id="LAY_table_order" lay-filter="LAY_table_order"></table>
+				<script type="text/html" id="opbar">
+					<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+					<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+				</script>
+				
+				<script type="text/html" id="orderStatusTpl">
+				  {{#  if(d.order_status == '待支付'){ }}
+				    <button class="layui-btn layui-btn-normal layui-btn-xs">待支付</button>
+				  {{#  } else if(d.order_status == '已完成'){ }}
+				    <button class="layui-btn layui-btn-primary layui-btn-xs">已完成</button>
+				  {{#  } else{ }}
+				    <button class="layui-btn layui-btn-warm layui-btn-xs">已取消</button>
+				  {{#  } }}
+				</script>
+
+			</div>
+		</div>
+
+		<script src="../../static/layui/layui.js"></script>
+		<script>
+			layui.use('laydate', function() {
+				var laydate = layui.laydate;
+				//日期范围
+				laydate.render({
+					elem: '#search_create_time',
+					range: true
+				});
+			});
+			layui.use('table', function() {
+				var table = layui.table;
+				table.render({
+					elem: '#LAY_table_order',
+					url: '/mdgc/static/json/order/platform_order_list.js',
+					toolbar: '#toolbar', //开启头部工具栏，并为其绑定左侧模板
+					defaultToolbar: ['filter', 'exports', 'print'],
+					title: '订单表',
+					id: 'orderReload',
+					cols: [
+						[{
+							type: 'checkbox',
+							fixed: 'left'
+						}, {
+							field: 'order_id',
+							title: '订单编号',
+							width:150,
+							fixed: true
+						}, {
+							field: 'goods_id',
+							title: '商品编号',
+							width:150,
+							fixed: true,
+						}, {
+							field: 'pay_money',
+							title: '支付金额',
+							width:100
+						}, {
+							field: 'buyer',
+							title: '买家'
+						}, {
+							field: 'agent',
+							title: '代理商',
+						}, {
+							field: 'supplier',
+							title: '供应商'
+						}, {
+							field: 'order_status',
+							title: '订单状态',
+							width:100,
+							templet: '#orderStatusTpl'
+						}, {
+							field: 'create_time',
+							title: '提交时间'
+						}, {
+							fixed: 'right',
+							title: '操作',
+							toolbar: '#opbar',
+							width: 150
+						}]
+					],
+					page: true
+				});
+
+				var $ = layui.$,
+					active = {
+						reload: function() {
+
+							var search_supplier = $('#search_supplier');
+							var search_agent = $('#search_agent');
+							var search_order_status = $('#search_order_status');
+							var search_create_time = $('#search_create_time');
+							var search_price_min = $('#search_price_min');
+							var search_price_max = $('#search_price_max');
+							var search_order_id = $('#search_order_id');
+							var search_goods_id = $('#search_goods_id');
+							//执行重载
+							table.reload('orderReload', {
+								page: {
+									curr: 1 //重新从第 1 页开始
+								},
+								where: {
+
+									search_supplier: search_supplier.val(),
+									search_agent: search_agent.val(),
+									search_order_status: search_order_status.val(),
+									search_create_time: search_create_time.val(),
+									search_price_min: search_price_min.val(),
+									search_price_max: search_price_max.val(),
+									search_order_id: search_order_id.val(),
+									search_goods_id: search_goods_id.val(),
+
+								}
+							}, 'data');
+						}
+					};
+				//搜索按钮点击时间调用重载
+				$('#search-btn').on('click', function() {
+					var type = $(this).data('type');
+					console.log(type);
+					active[type] ? active[type].call(this) : '';
+				});
+
+				//监听行工具事件
+				table.on('tool(LAY_table_order)', function(obj) {
+					var data = obj.data;
+					if (obj.event === 'detail') {
+						layer.msg('ID：' + data.id + ' 的查看操作');
+					} else if (obj.event === 'del') {
+						layer.confirm('真的删除行么', function(index) {
+							obj.del();
+							//在这里写ajax请求删除后台数据
+							layer.close(index);
+						});
+					}
+				});
+			});
+		</script>
 	</body>
 </html>
