@@ -2,8 +2,117 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>网站设置-高级设置</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+		<link rel="stylesheet" href="../static/style/admin.css" media="all">
+		<style>
+			.layui-input-block label{
+				float: left;
+				margin-right: 20px;
+			}
+			
+			.layui-input-block label img{
+				width: 200px;
+				height: 200px;
+			}
+		</style>
 	</head>
 	<body>
+		<div class="layui-fluid">
+			<div class="layui-row layui-col-space15">
+				<div class="layui-col-md12">
+					<div class="layui-card">
+						<div class="layui-card-header">网站高级设置</div>
+						<div class="layui-card-body" pad15>
+
+							<div class="layui-form" wid100 lay-filter="">
+
+								<div class="layui-form-item">
+
+									<label class="layui-form-label">号码列表风格设置</label>
+									<div class="layui-input-block">
+										<label>
+											<img src="../static/imgs/demo/style1.png"><br />
+											<input type="radio" name="style" value="1" title="按照特色标色">
+										</label>
+										<label>
+											<img src="../static/imgs/demo/style2.png"><br />
+											<input type="radio" name="style" value="2" title="按照分段标色">
+										</label>
+									</div>
+								</div>
+
+								<div class="layui-form-item">
+									<label class="layui-form-label">会员注册</label>
+									<div class="layui-input-block">
+										<input type="radio" name="vipreg" value="1" title="开放">
+										<input type="radio" name="vipreg" value="2" title="关闭">
+									</div>
+								</div>
+
+								<div class="layui-form-item">
+									<label class="layui-form-label">会员注册</label>
+									<div class="layui-input-block">
+										<input type="radio" name="soldout" value="1" title="下单下架">
+										<input type="radio" name="soldout" value="2" title="付款下架">
+										<input type="radio" name="soldout" value="3" title="交易完成下架">
+									</div>
+								</div>
+
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+										<button class="layui-btn" lay-submit lay-filter="set_website">确认保存</button>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../static/layui/layui.js?t=1"></script>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script>
+			//TODO 初始化
+			$.ajax({
+				url: "/mdgc/static/json/order/platform_statistics_agent_sales_list.js", //TODO
+				type: 'get',
+				dataType: 'json',
+				success: function(res) {
+					if (res.code == 0) {
+						//TODO 
+						$("input:radio[name='style']").eq(1).attr("checked", 'checked');
+						$("input:radio[name='vipreg']").eq(0).attr("checked", 'checked');
+						$("input:radio[name='soldout']").eq(2).attr("checked", 'checked');
+					}
+				},
+			})
+			layui.use('form', function() {
+				var form = layui.form;
+
+				//监听提交
+				form.on('submit(set_website)', function(data) {
+					$.ajax({
+						url: "/mdgc/static/json/order/platform_statistics_agent_sales_list.js",
+						type: 'get', //真实数据，请改为post请求
+						data: data.field, //sitename=&domain=&title=&keywords=&descript=&logo_img=&favicon_img=
+						dataType: 'json',
+						success: function(res) {
+							console.log(res);
+							if (res.code == 0) {
+								layer.msg("成功");
+							} else {
+								layer.msg("失败");
+							}
+						}
+					});
+				});
+			});
+		</script>
 	</body>
 </html>
