@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>添加轮播图</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+		<link rel="stylesheet" href="../static/style/admin.css" media="all">
+		<style>
+			#logo-upload-img{
+				width: 80px;
+				height: 80px;
+			}
+		</style>
+	</head>
+	<body>
+		<form class="layui-form" action="">
+			<div class="layui-fluid">
+				<div class="layui-row layui-col-space15">
+					<div class="layui-col-md12">
+						<div class="layui-card">
+							<div class="layui-card-body" pad15>
+
+								<div class="layui-form" wid100 lay-filter="">
+									<div class="layui-form-item">
+										<label class="layui-form-label">轮播图名称</label>
+										<div class="layui-input-block">
+											<input type="text" name="name" id="name" value="" class="layui-input">
+										</div>
+									</div>
+
+									<div class="layui-form-item layui-form-text">
+										<label class="layui-form-label">轮播图素材</label>
+										<div class="layui-input-inline">
+
+											<div class="layui-upload">
+												<div class="layui-upload-list">
+													<img class="layui-upload-img" id="banner-upload-img" src="">
+													<p id="logo-upload_text"></p>
+												</div>
+												<input type="hidden" id="banner_img" name="pic" value="" />
+												<button type="button" class="layui-btn layui-btn-danger" id="banner-upload"><i class="layui-icon"></i>上传</button>
+											</div>
+										</div>
+									</div>
+									<div class="layui-form-item">
+										<label class="layui-form-label">轮播图说明</label>
+										<div class="layui-input-block">
+											<input type="text" name="explain" id="explain" value="" class="layui-input">
+										</div>
+									</div>
+
+									<div class="layui-form-item">
+										<label class="layui-form-label">轮播图链接</label>
+										<div class="layui-input-block">
+											<input type="text" name="url" id="url" value="" class="layui-input">
+										</div>
+									</div>
+
+
+									<input type="hidden" value="" name="id" id="editid" />
+
+									<div class="layui-form-item">
+										<div class="layui-input-block">
+											<button class="layui-btn" lay-submit lay-filter="set_add_btn">确认保存</button>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</form>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="../static/layui/layui.js?t=1"></script>
+		<script>
+			layui.use(['layer', 'form', 'upload'], function() {
+				var layer = layui.layer,
+					form = layui.form,
+					upload = layui.upload;
+				//监听提交
+				//在编辑时，会多传一个id
+				form.on('submit(set_add_btn)', function(formdata) {
+
+					console.log(formdata.field);
+
+					$.ajax({
+						url: "/mdgc/static/json/order/platform_statistics_agent_sales_list.js",
+						type: 'get', //真实数据，请改为post请求
+						data: formdata.field, //sitename=&domain=&title=&keywords=&descript=&logo_img=&favicon_img=
+						dataType: 'json',
+						success: function(res) {
+							console.log(res);
+							window.parent.location.reload(); //成功后刷新父页面
+						}
+					});
+				});
+
+				var logoUploadInst = upload.render({
+					elem: '#banner-upload',
+					url: '/upload/',
+					before: function(obj) {
+						//预读本地文件示例，不支持ie8
+						obj.preview(function(index, file, result) {
+							$('#banner-upload-img').attr('src', result);
+						});
+					},
+					done: function(res) {
+						//如果上传失败
+						if (res.code > 0) {
+							return layer.msg('上传失败');
+						}
+						//TODO::上传成功 需要吧图片地址回填到隐藏input框里
+						$("#banner-img").val(
+							"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1588864619511&di=a159dd24ae0e75efb02c02d6636f7383&imgtype=0&src=http%3A%2F%2Fa2.att.hudong.com%2F36%2F48%2F19300001357258133412489354717.jpg"
+						)
+					},
+					error: function() {
+						//演示失败状态，并实现重传
+						var demoText = $('#banner-upload_text');
+						demoText.html(
+							'<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload" id="banner-upload-reload">重试</a>'
+						);
+						demoText.find('#banner-upload-reload').on('click', function() {
+							logoUploadInst.upload();
+						});
+					}
+				});
+			});
+
+
+			var id = getQueryVariable("id");
+			//如果有id，那就代表修改，先获取原数据
+			if (id) {
+				$.ajax({
+					url: "/mdgc/static/json/order/platform_statistics_agent_sales_list.js", //TODO
+					type: 'get',
+					data: {
+						'id': id
+					},
+					dataType: 'json',
+					success: function(res) {
+						if (res.code == 0) {
+							//TODO 
+							$("#editid").val(id);
+							$("#name").val("测试测试");
+							$("#banner-upload-img").attr("src",
+								"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1906469856,4113625838&fm=26&gp=0.jpg"); //这里是展示
+							$("#banner_img").val(
+								"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1906469856,4113625838&fm=26&gp=0.jpg"); //这里是input
+							$("#explain").val("说明说明");
+							$("#url").val("urlurl");
+						}
+					}
+				});
+			}
+
+			function getQueryVariable(variable) {
+				var query = window.location.search.substring(1);
+				var vars = query.split("&");
+				for (var i = 0; i < vars.length; i++) {
+					var pair = vars[i].split("=");
+					if (pair[0] == variable) {
+						return pair[1];
+					}
+				}
+				return (false);
+			}
+		</script>
+	</body>
+</html>

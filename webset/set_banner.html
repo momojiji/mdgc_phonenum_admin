@@ -2,8 +2,139 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>站点设置-自定义菜单设置</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+		<link rel="stylesheet" href="../static/style/admin.css" media="all">
+		<style>
+			.carousel-img{
+				height: 150px;
+				width: 350px;
+			}
+		</style>
 	</head>
 	<body>
+
+		<div class="layui-fluid">
+			<div class="layui-card">
+				<div class="layui-card-header">轮播图示例</div>
+				<div class="layui-form layui-card-header layuiadmin-card-header-auto">
+					<div class="layui-carousel" id="banner-example">
+						<div carousel-item>
+							<div><a href="http://www.baidu.com" target="_blank"><img class="carousel-img" src="../static/imgs/demo/1.jpg"></a></div>
+							<div><a href="http://www.baidu.com" target="_blank"><img class="carousel-img" src="../static/imgs/demo/2.jpg"></a></div>
+							<div><a href="http://www.baidu.com" target="_blank"><img class="carousel-img" src="../static/imgs/demo/3.jpg"></a></div>
+							<div><a href="http://www.baidu.com" target="_blank"><img class="carousel-img" src="../static/imgs/demo/4.jpg"></a></div>
+							<div><a href="http://www.baidu.com" target="_blank"><img class="carousel-img" src="../static/imgs/demo/5.jpg"></a></div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-card-body">
+					<div style="padding-bottom: 10px;">
+						<button class="layui-btn layuiadmin-btn-list" onclick="add()">添加</button>
+					</div>
+					<table id="LAY_table_banner" lay-filter="LAY_table_banner"></table>
+
+					<script type="text/html" id="opbar">
+						<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">编辑</a>
+						<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+					</script>
+
+					<script type="text/html" id="logoTpl">
+						<div>
+							<img src="{{d.pic}}" alt="" width="150px" height="50px">
+						</div>
+					</script>
+				</div>
+			</div>
+		</div>
+		<style>
+			.layui-table-cell {
+				height: auto !important;
+				white-space: normal;
+			}
+		</style>
+		<script src="../static/layui/layui.js?t=1"></script>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script>
+			layui.use(['table', 'form', 'carousel'], function() {
+				var table = layui.table,
+					form = layui.form,
+					carousel = layui.carousel;
+				//建造实例  
+				//轮播图使用方法见：https://www.layui.com/doc/modules/carousel.html
+				carousel.render({
+					elem: '#banner-example',
+					width: '100%', //设置容器宽度
+					arrow: 'always', //始终显示箭头
+					width: '350px',
+					height: '150px'
+				});
+				table.render({
+					elem: '#LAY_table_banner',
+					url: '/mdgc/static/json/webset/set_banner.js',
+					title: '轮播图',
+					id: 'menuReload',
+					cols: [
+						[{
+							field: 'id',
+							title: '编号',
+						}, {
+							field: 'pic',
+							title: 'LOGO',
+							templet: '#logoTpl'
+						}, {
+							field: 'name',
+							title: '名称',
+						}, {
+							field: 'uploader',
+							title: '上传者',
+						}, {
+							field: 'create_time',
+							title: '添加时间',
+						}, {
+							fixed: 'right',
+							title: '操作',
+							toolbar: '#opbar'
+						}]
+					],
+					page: true
+				});
+
+
+				//监听行工具事件
+				table.on('tool(LAY_table_banner)', function(obj) {
+					var data = obj.data;
+					if (obj.event === 'edit') {
+						layer.open({
+							type: 2,
+							title: '编辑轮播图',
+							content: 'addbanner.html?id=' + data.id,
+							maxmin: true,
+							area: ['80%', '600px']
+						});
+
+					} else if (obj.event === 'del') {
+						layer.confirm('真的删除行么', function(index) {
+							obj.del();
+							//在这里写ajax请求删除后台数据
+							layer.close(index);
+						});
+					}
+				});
+			});
+
+			function add() {
+				layer.open({
+					type: 2,
+					title: '添加菜单',
+					content: 'addbanner.html',
+					maxmin: true,
+					area: ['600px', '600px']
+				});
+			}
+		</script>
 	</body>
 </html>
