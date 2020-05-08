@@ -2,8 +2,182 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>站点设置-自定义菜单设置</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+		<link rel="stylesheet" href="../static/style/admin.css" media="all">
 	</head>
 	<body>
+
+		<div class="layui-fluid">
+			<div class="layui-card">
+				<div class="layui-form layui-card-header layuiadmin-card-header-auto">
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">分类名称</label>
+							<div class="layui-input-inline">
+								<input type="text" name="search_category" placeholder="请输入分类名称" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<button class="layui-btn layuiadmin-btn-list" id="search-btn" lay-submit lay-filter="LAY-app-contlist-search">
+								<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="layui-card-body">
+					<div style="padding-bottom: 10px;">
+						<button class="layui-btn layuiadmin-btn-list" onclick="add()">添加</button>
+					</div>
+					<table id="LAY_table_custom-menu" lay-filter="LAY_table_custom-menu"></table>
+
+					<script type="text/html" id="opbar">
+						<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">编辑</a>
+						<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+					</script>
+
+					<script type="text/html" id="isshowTpl">
+						<input type="checkbox" name="isshow" value="{{d.id}}" lay-skin="switch" lay-text="是|否" lay-filter="isshowdemo" {{ d.isshow == 1 ? 'checked' : '' }}>
+					</script>
+
+					<script type="text/html" id="logoTpl">
+						
+						<div>
+							<img src="{{d.pic}}" alt="" width="100px" height="100px">
+						</div>
+						
+					</script>
+				</div>
+			</div>
+		</div>
+		<style>
+			.layui-table-cell{
+				height: auto !important;
+				white-space: normal;
+			}
+		</style>
+		<script src="../static/layui/layui.js?t=1"></script>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script>
+			layui.use('table', function() {
+				var table = layui.table,
+					form = layui.form;
+				table.render({
+					elem: '#LAY_table_custom-menu',
+					url: '/mdgc/static/json/webset/set_custom.js',
+					title: '菜单表',
+					id: 'menuReload',
+					cols: [
+						[{
+							field: 'id',
+							title: '编号',
+						}, {
+							field: 'category',
+							title: '分类名称',
+						}, {
+							field: 'pic',
+							title: 'LOGO',
+							templet:'#logoTpl'
+						}, {
+							field: 'sort',
+							title: '排序',
+						}, {
+							field: 'isshow',
+							title: '是否展示',
+							templet: '#isshowTpl'
+						}, {
+							fixed: 'right',
+							title: '操作',
+							toolbar: '#opbar'
+						}]
+					],
+					page: true
+				});
+
+				var $ = layui.$,
+					active = {
+						reload: function() {
+
+							var search_category = $('#search_category');
+
+							//执行重载
+							table.reload('menuReload', {
+								page: {
+									curr: 1 //重新从第 1 页开始
+								},
+								where: {
+									search_category: search_category.val(),
+								}
+							}, 'data');
+						}
+					};
+				//搜索按钮点击时间调用重载
+				$('#search-btn').on('click', function() {
+					var type = $(this).data('type');
+					console.log(type);
+					active[type] ? active[type].call(this) : '';
+				});
+
+
+				//监听行工具事件
+				table.on('tool(LAY_table_custom-menu)', function(obj) {
+					var data = obj.data;
+					if (obj.event === 'edit') {
+						layer.open({
+						  type: 2
+						  ,title: '编辑菜单'
+						  ,content: 'addmenu.html?id='+data.id
+						  ,maxmin: true
+						  ,area: ['600px', '600px']
+						}); 
+						
+						
+					} else if (obj.event === 'del') {
+						layer.confirm('真的删除行么', function(index) {
+							obj.del();
+							//在这里写ajax请求删除后台数据
+							layer.close(index);
+						});
+					}
+				});
+				//监听是否显示
+				form.on('switch(isshowdemo)', function(obj) {
+					//TODO   del
+					layer.tips(this.value + ' ' + this.name + '：' + obj.elem.checked, obj.othis);
+
+					//TODO  
+					$.ajax({
+						url: "/mdgc/static/json/webset/set_custom.js",
+						type: 'get', //TODO 改为POST
+						data: {
+							id: this.value,
+							isshow: obj.elem.checked
+						},
+						dataType: 'json',
+						success: function(res) {
+							console.log(res);
+							if (res.code == 0) {
+								layer.msg("修改成功");
+							} else {
+								layer.msg("修改失败");
+							}
+						}
+					});
+				});
+			});
+		    function add(){
+				layer.open({
+				  type: 2
+				  ,title: '添加菜单'
+				  ,content: 'addmenu.html'
+				  ,maxmin: true
+				  ,area: ['600px', '600px']
+				
+				}); 
+			}
+		</script>
 	</body>
 </html>
