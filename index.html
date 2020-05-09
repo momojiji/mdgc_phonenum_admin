@@ -33,7 +33,7 @@
 					</ul>
 					<ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
 						<li class="layui-nav-item" lay-unselect>
-							<a lay-href="app/message/index.html" layadmin-event="message" lay-text="消息中心">
+							<a lay-href="#" layadmin-event="message" lay-text="消息中心">
 								<i class="layui-icon layui-icon-notice"></i>
 								<!-- 如果有新消息，则显示小圆点 -->
 								<span class="layui-badge-dot"></span>
@@ -62,8 +62,8 @@
 								<cite>小刀</cite>
 							</a>
 							<dl class="layui-nav-child">
-								<dd><a lay-href="set/user/info.html">基本资料</a></dd>
-								<dd><a lay-href="set/user/password.html">修改密码</a></dd>
+								<dd><a lay-href="#">基本资料</a></dd>
+								<dd><a lay-href="#">修改密码</a></dd>
 								<hr>
 								<dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
 							</dl>
@@ -135,33 +135,28 @@
 											<dd data-name="order-agent-list"><a lay-href="order/order_agent/order_list.html">订单列表</a></dd>
 											<dd data-name="order-agent-custom"><a lay-href="order/order_agent/order_custom.html">定制订单</a></dd>
 											<dd data-name="order-agent-recyle"><a lay-href="order/order_agent/order_recycle.html">回收订单</a></dd>
-											<dd data-name="order-agent-statistics"><a lay-href="order/order_agent/order_statistics.html">数据统计</a></dd
-										</dl>
-									</dd>
-								</dl>
-							</li>
-
-							<li data-name="bill" class="layui-nav-item">
-								<a href="javascript:;" lay-tips="对账管理" lay-direction="2">
-									<i class="layui-icon layui-icon-list"></i>
-									<cite>对账管理</cite>
-								</a>
-								<dl class="layui-nav-child">
-									<dd data-name="bill_supplier">
-										<a href="javascript:;">供应商对账管理</a>
-										<dl class="layui-nav-child">
-											<dd data-name="bill_supplier_info"><a lay-href="component/grid/list.html">对账管理-查看详情</a></dd>
-											<dd data-name="bill_supplier_audit"><a lay-href="component/grid/mobile.html">提现审核</a></dd>
-										</dl>
-									</dd>
-									<dd data-name="bill_agent">
-										<a href="javascript:;">代理商对账管理</a>
-										<dl class="layui-nav-child">
-											<dd data-name="bill_agent_info"><a lay-href="component/grid/list.html">对账管理-查看详情</a></dd>
-											<dd data-name="bill_agent_audit"><a lay-href="component/grid/mobile.html">提现审核</a></dd>
-										</dl>
-									</dd>
-								</dl>
+											<dd data-name="order-agent-statistics"><a lay-href="order/order_agent/order_statistics.html">数据统计</a></dd </dl>
+											 </dd> </dl> </li> <li data-name="bill" class="layui-nav-item">
+											<a href="javascript:;" lay-tips="对账管理" lay-direction="2">
+												<i class="layui-icon layui-icon-list"></i>
+												<cite>对账管理</cite>
+											</a>
+											<dl class="layui-nav-child">
+												<dd data-name="bill_supplier">
+													<a href="javascript:;">供应商对账管理</a>
+													<dl class="layui-nav-child">
+														<dd data-name="bill_supplier_info"><a lay-href="bill/bill_supplier/bill_supplier_info.html">对账管理-查看详情</a></dd>
+														<dd data-name="bill_supplier_audit"><a lay-href="bill/bill_supplier/bill_supplier_audit.html">提现审核</a></dd>
+													</dl>
+												</dd>
+												<dd data-name="bill_agent">
+													<a href="javascript:;">代理商对账管理</a>
+													<dl class="layui-nav-child">
+														<dd data-name="bill_agent_info"><a lay-href="bill/bill_agent/bill_agent_info.html">对账管理-查看详情</a></dd>
+														<dd data-name="bill_agent_audit"><a lay-href="bill/bill_agent/bill_agent_audit.html">提现审核</a></dd>
+													</dl>
+												</dd>
+											</dl>
 							</li>
 
 							<li data-name="phone_number" class="layui-nav-item">

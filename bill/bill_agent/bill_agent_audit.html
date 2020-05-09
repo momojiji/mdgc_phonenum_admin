@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>对账管理-代理商-提现审核</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+		<link rel="stylesheet" href="../../static/style/admin.css" media="all">
+	</head>
+	<body>
+
+		<div class="layui-fluid">
+			<div class="layui-card">
+				<div class="layui-form layui-card-header layuiadmin-card-header-auto">
+					<div class="layui-form-item table-search-form">
+						<div class="layui-inline">
+							<label class="layui-form-label">申请人</label>
+							<div class="layui-input-inline">
+								<select name="search_applicant" id="search_applicant" lay-search="">
+									<option value="">全部</option>
+									<option value="1">张三1</option>
+									<option value="2">李四2</option>
+									<option value="3">王麻子3</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">代理商名称</label>
+							<div class="layui-input-inline">
+								<select name="search_agent" id="search_agent" lay-search="">
+									<option value="">全部</option>
+									<option value="1">代理商1</option>
+									<option value="2">代理商2</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="layui-inline">
+							<label class="layui-form-label">审核状态</label>
+							<div class="layui-input-inline">
+								<select name="search_status" id="search_status" lay-search="">
+									<option value="">全部</option>
+									<option value="1">通过</option>
+									<option value="2">未通过</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">申请时间</label>
+							<div class="layui-input-inline">
+								<input type="text" class="layui-input" id="search_create_time" name="search_create_time" placeholder=" - ">
+							</div>
+						</div>
+
+						<div class="layui-inline">
+							<button class="layui-btn" id="search-btn" data-type="reload">搜索</button>
+						</div>
+					</div>
+				</div>
+				<table class="layui-hide" id="LAY_table_audit" lay-filter="LAY_table_audit"></table>
+				<script type="text/html" id="opbar">
+					<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+				</script>
+
+				<script type="text/html" id="auditStatusTpl">
+					{{#  if(d.status == '通过'){ }}
+				    <button class="layui-btn layui-btn-normal layui-btn-xs">通过</button>
+				  {{#  } else if(d.status == '未通过'){ }}
+				    <button class="layui-btn layui-btn-primary layui-btn-xs">未通过</button>
+				  {{#  } }}
+				</script>
+
+			</div>
+		</div>
+
+		<script src="../../static/layui/layui.js"></script>
+		<script>
+			layui.use('laydate', function() {
+				var laydate = layui.laydate;
+				//日期范围
+				laydate.render({
+					elem: '#search_create_time',
+					range: true
+				});
+			});
+			layui.use('table', function() {
+				var table = layui.table;
+				table.render({
+					elem: '#LAY_table_audit',
+					url: '/mdgc/static/json/bill/bill_agent_audit.js',
+					toolbar: '#toolbar', //开启头部工具栏，并为其绑定左侧模板
+					defaultToolbar: ['filter', 'exports', 'print'],
+					title: '提现申请表',
+					id: 'auditReload',
+					cols: [
+						[{
+							type: 'checkbox',
+							fixed: 'left'
+						}, {
+							field: 'id',
+							title: '编号',
+						}, {
+							field: 'applicant',
+							title: '申请者',
+						}, {
+							field: 'agent',
+							title: '代理商',
+						}, {
+							field: 'money',
+							title: '提现金额（元）'
+						}, {
+							field: 'status',
+							title: '审核状态',
+							templet: '#auditStatusTpl'
+						}, {
+							field: 'create_time',
+							title: '提交时间'
+						}, {
+							fixed: 'right',
+							title: '操作',
+							toolbar: '#opbar',
+							width: 150
+						}]
+					],
+					page: true
+				});
+
+				var $ = layui.$,
+					active = {
+						reload: function() {
+
+							var search_applicant = $('#search_applicant');
+							var search_agent = $('#search_agent');
+							var search_status = $('#search_status');
+							var search_create_time = $('#search_create_time');
+							//执行重载
+							table.reload('orderReload', {
+								page: {
+									curr: 1 //重新从第 1 页开始
+								},
+								where: {
+
+									search_applicant: search_applicant.val(),
+									search_agent: search_agent.val(),
+									search_status: search_status.val(),
+									search_create_time: search_create_time.val(),
+								}
+							}, 'data');
+						}
+					};
+				//搜索按钮点击时间调用重载
+				$('#search-btn').on('click', function() {
+					var type = $(this).data('type');
+					console.log(type);
+					active[type] ? active[type].call(this) : '';
+				});
+
+				//监听行工具事件
+				table.on('tool(LAY_table_audit)', function(obj) {
+					var data = obj.data;
+					if (obj.event === 'detail') {
+						layer.msg('ID：' + data.id + ' 的查看操作');
+					} else if (obj.event === 'del') {
+						layer.confirm('真的删除行么', function(index) {
+							obj.del();
+							//在这里写ajax请求删除后台数据
+							layer.close(index);
+						});
+					}
+				});
+			});
+		</script>
+	</body>
+</html>
