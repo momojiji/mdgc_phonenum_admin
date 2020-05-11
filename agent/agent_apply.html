@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>代理商管理-我的审核（平台审核)</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+		<link rel="stylesheet" href="../static/style/admin.css" media="all">
+	</head>
+	<body>
+
+		<div class="layui-fluid">
+			<div class="layui-card">
+				<div class="layui-form layui-card-header layuiadmin-card-header-auto">
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">添加时间</label>
+							<div class="layui-input-inline">
+								<input type="text" class="layui-input" id="search_create_time" name="search_create_time" placeholder=" - ">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">运营商</label>
+							<div class="layui-input-inline">
+								<select name="search_audit_status" id="search_audit_status" lay-search="">
+									<option value="">全部</option>
+									<option value="1">处理中</option>
+									<option value="2">已通过</option>
+									<option value="3">已驳回</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">代理商ID</label>
+							<div class="layui-input-inline">
+								<input type="text" name="search_agent_id" id="search_agent_id" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">昵称</label>
+							<div class="layui-input-inline">
+								<input type="text" name="search_nickname" id="search_nickname" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">手机号</label>
+							<div class="layui-input-inline">
+								<input type="text" name="search_phone_number" id="search_phone_number" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+
+						<div class="layui-inline">
+							<label class="layui-form-label">店铺名称</label>
+							<div class="layui-input-inline">
+								<input type="text" name="search_shop_name" id="search_shop_name" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<button class="layui-btn layuiadmin-btn-list" id="search-btn" lay-submit lay-filter="LAY-app-contlist-search">
+								<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="layui-card-body">
+					<table id="LAY_table_custom-agent" lay-filter="LAY_table_custom-agent"></table>
+
+					<script type="text/html" id="opbar">
+						<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="info">查看</a>
+					</script>
+					<script type="text/html" id="auditStatusTpl">
+						{{#  if(d.audit_status == '审核中'){ }}
+					    <button class="layui-btn layui-btn-normal layui-btn-xs">审核中</button>
+					  {{#  } else if(d.audit_status == '已通过'){ }}
+					    <button class="layui-btn layui-btn-primary layui-btn-xs">已通过</button>
+					 {{#  } else if(d.audit_status == '已驳回'){ }}
+					   <button class="layui-btn layui-btn-warm layui-btn-xs">已驳回</button>
+					  {{#  } }}
+					</script>
+				</div>
+			</div>
+		</div>
+		<style>
+			.layui-table-cell {
+				height: auto !important;
+				white-space: normal;
+			}
+		</style>
+		<script src="../static/layui/layui.js?t=1"></script>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script>
+			layui.use('table', function() {
+				var table = layui.table,
+					form = layui.form;
+				table.render({
+					elem: '#LAY_table_custom-agent',
+					url: '/mdgc/static/json/agent/agent.js',
+					title: '菜单表',
+					id: 'agentReload',
+					cols: [
+
+						[{
+								field: 'id',
+								title: '编号',
+							}, {
+								field: 'nickname',
+								title: '会员昵称',
+							}, {
+								field: 'name',
+								title: '姓名',
+							}, {
+								field: 'shop_name',
+								title: '店铺名称',
+							}, {
+								field: 'domain',
+								title: '域名',
+							},
+							{
+								field: 'audit_status',
+								title: '审核状态',
+								templet: '#auditStatusTpl'
+							}, {
+								field: 'phone_number',
+								title: '手机号',
+							}, {
+								field: 'qq',
+								title: 'QQ',
+							}, {
+								field: 'level',
+								title: '代理等级',
+							}, {
+								field: 'referrer',
+								title: '推荐人',
+							}, {
+								field: 'create_time',
+								title: '添加时间',
+							}, {
+								fixed: 'right',
+								title: '操作',
+								toolbar: '#opbar'
+							}
+						]
+					],
+					page: true
+				});
+
+				var $ = layui.$,
+					active = {
+						reload: function() {
+							var search_create_time = $('#search_create_time');
+							var search_agent_id = $('#search_agent_id');
+							var search_nickname = $('#search_nickname');
+							var search_phone_number = $('#search_phone_number');
+							var search_shop_name = $('#search_shop_name');
+
+							//执行重载
+							table.reload('agentReload', {
+								page: {
+									curr: 1 //重新从第 1 页开始
+								},
+								where: {
+									search_category: search_category.val(),
+									search_agent_id: search_agent_id.val(),
+									search_nickname: search_nickname.val(),
+									search_phone_number: search_phone_number.val(),
+									search_shop_name: search_shop_name.val(),
+								}
+							}, 'data');
+						}
+					};
+				//搜索按钮点击时间调用重载
+				$('#search-btn').on('click', function() {
+					var type = $(this).data('type');
+					console.log(type);
+					active[type] ? active[type].call(this) : '';
+				});
+
+
+				//监听行工具事件
+				table.on('tool(LAY_table_custom-agent)', function(obj) {
+					var data = obj.data;
+					if (obj.event === 'info') {
+						layer.msg("您点了查看详情")
+					}
+				});
+			});
+		</script>
+	</body>
+</html>
