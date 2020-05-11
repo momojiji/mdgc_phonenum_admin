@@ -2,8 +2,152 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>资金池-我的收入</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+		<link rel="stylesheet" href="../static/style/admin.css" media="all">
 	</head>
 	<body>
+
+		<div class="layui-fluid">
+			<div class="layui-card">
+				<div class="layui-form layui-card-header layuiadmin-card-header-auto">
+					<div class="layui-form-item table-search-form">
+						<div class="layui-inline">
+							<label class="layui-form-label">收入类型</label>
+							<div class="layui-input-inline">
+								<select name="search_supplier" id="search_supplier" lay-search="">
+									<option value="">全部</option>
+									<option value="1">售出</option>
+									<option value="2">提成</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">时间</label>
+							<div class="layui-input-inline">
+								<input type="text" class="layui-input" id="search_time" name="search_time" placeholder=" - ">
+							</div>
+						</div>
+
+						<div class="layui-inline">
+							<button class="layui-btn" id="search-btn" data-type="reload">搜索</button>
+						</div>
+					</div>
+				</div>
+				<blockquote class="layui-elem-quote">2020年1月1日至2020年5月1日，我的收入总额为 1000000.00元整，其中我的售出收入 800000.00元整，提成收入200000.00元整。</blockquote>
+				<table class="layui-hide" id="LAY_table_income" lay-filter="LAY_table_income"></table>
+				<script type="text/html" id="opbar">
+					<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+				</script>
+
+			</div>
+		</div>
+
+		<script src="../static/layui/layui.js"></script>
+		<script>
+			layui.use('laydate', function() {
+				var laydate = layui.laydate;
+				//日期范围
+				laydate.render({
+					elem: '#search_time',
+					range: true
+				});
+			});
+			layui.use('table', function() {
+				var table = layui.table;
+				table.render({
+					elem: '#LAY_table_income',
+					url: '/mdgc/static/json/capital/income.js',
+					toolbar: '#toolbar', //开启头部工具栏，并为其绑定左侧模板
+					defaultToolbar: ['filter', 'exports', 'print'],
+					title: '订单表',
+					id: 'orderReload',
+					cols: [
+						[{
+								type: 'checkbox',
+								fixed: 'left'
+							}, {
+								field: 'order_id',
+								title: '订单编号',
+							}, {
+								field: 'number',
+								title: '商品号码',
+							}, {
+								field: 'floor_price',
+								title: '底价',
+							}, {
+								field: 'sell_price',
+								title: '交易金额（元）'
+							}, {
+								field: 'income',
+								title: '我的收入',
+							}, {
+								field: 'agent',
+								title: '代理商',
+							},
+							{
+								field: 'agent_level',
+								title: '代理商等级',
+							}, {
+								field: 'create_time',
+								title: '提交时间'
+							}, {
+								fixed: 'right',
+								title: '操作',
+								toolbar: '#opbar',
+								width: 150
+							}
+						]
+					],
+					page: true
+				});
+
+				var $ = layui.$,
+					active = {
+						reload: function() {
+
+							var search_supplier = $('#search_supplier');
+							var search_create_time = $('#search_create_time');
+							var search_order_id = $('#search_order_id');
+							//执行重载
+							table.reload('orderReload', {
+								page: {
+									curr: 1 //重新从第 1 页开始
+								},
+								where: {
+
+									search_supplier: search_supplier.val(),
+									search_create_time: search_create_time.val(),
+									search_order_id: search_order_id.val(),
+
+								}
+							}, 'data');
+						}
+					};
+				//搜索按钮点击时间调用重载
+				$('#search-btn').on('click', function() {
+					var type = $(this).data('type');
+					console.log(type);
+					active[type] ? active[type].call(this) : '';
+				});
+
+				//监听行工具事件
+				table.on('tool(LAY_table_income)', function(obj) {
+					var data = obj.data;
+					if (obj.event === 'detail') {
+						layer.msg('ID：' + data.order_id + ' 的查看操作');
+					} else if (obj.event === 'del') {
+						layer.confirm('真的删除行么', function(index) {
+							obj.del();
+							//在这里写ajax请求删除后台数据
+							layer.close(index);
+						});
+					}
+				});
+			});
+		</script>
 	</body>
 </html>

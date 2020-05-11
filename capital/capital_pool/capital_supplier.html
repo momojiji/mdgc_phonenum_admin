@@ -2,8 +2,172 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>资金池-供应商</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+		<link rel="stylesheet" href="../../static/style/admin.css" media="all">
+		<style>
+			.account_info {
+				height: 230px;
+				line-height: 140px;
+			}
+		</style>
 	</head>
 	<body>
+		<div class="layui-fluid">
+			<div class="layui-row layui-col-space15">
+				<div class="layui-col-md12">
+					<div class="layui-row layui-col-space15">
+						<div class="layui-col-md6">
+							<div class="layui-card">
+								<div class="layui-card-header">资金池 ： 2020年1月1日至今</div>
+								<div class="layui-card-body">
+									<div carousel-item>
+										<ul class="layui-row layui-col-space10">
+											<li class="layui-col-xs6">
+												<a class="layadmin-backlog-body">
+													<h3>累计收入</h3>
+													<p><cite>660000</cite></p>
+												</a>
+											</li>
+											<li class="layui-col-xs6">
+												<a class="layadmin-backlog-body">
+													<h3>累计支出</h3>
+													<p><cite>660000</cite></p>
+												</a>
+											</li>
+											<li class="layui-col-xs6">
+												<a class="layadmin-backlog-body">
+													<h3>本年度收入</h3>
+													<p><cite>660000</cite></p>
+												</a>
+											</li>
+											<li class="layui-col-xs6">
+												<a class="layadmin-backlog-body">
+													<h3>本年度支出</h3>
+													<p><cite>660000</cite></p>
+												</a>
+											</li>
+											<li class="layui-col-xs6">
+												<a class="layadmin-backlog-body">
+													<h3>本月收入</h3>
+													<p><cite>660000</cite></p>
+												</a>
+											</li>
+											<li class="layui-col-xs6">
+												<a class="layadmin-backlog-body">
+													<h3>本月支出</h3>
+													<p><cite>660000</cite></p>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md6">
+							<div class="layui-card">
+								<div class="account_info">
+									<div class="box" style="font-size: 50px; ">
+										<label style="color: #EEE008;">账户余额：</label>100000元
+										<button type="button" class="layui-btn layui-btn-danger layui-btn-fluid">申请提现</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-card">
+					<div class="layui-form layui-card-header layuiadmin-card-header-auto">
+						<div class="layui-form-item table-search-form">
+						</div>
+					</div>
+					<blockquote class="layui-elem-quote">上次提现时间：2020.4.1 15:00</blockquote>
+					<table class="layui-hide" id="LAY_table" lay-filter="LAY_table"></table>
+					<script type="text/html" id="opbar">
+						<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="addremark">添加备注</a>
+					</script>
+					<script type="text/html" id="auditStatusTpl">
+						{{#  if(d.audit_status == '通过'){ }}
+					    <button class="layui-btn layui-btn-normal layui-btn-xs">通过</button>
+					  {{#  } else if(d.audit_status == '审核中'){ }}
+					    <button class="layui-btn layui-btn-primary layui-btn-xs">审核中</button>
+					{{#  } else if(d.audit_status == '失败'){ }}
+					  <button class="layui-btn layui-btn-warm layui-btn-xs">失败</button>
+					  {{#  } }}
+					</script>
+					<script type="text/html" id="withdrawStatusTpl">
+						{{#  if(d.withdraw_status == '已到账'){ }}
+					    <button class="layui-btn layui-btn-normal layui-btn-xs">已到账</button>
+					  {{#  } }}
+					</script>
+				</div>
+			</div>
+		</div>
+		<script src="../../static/layui/layui.js"></script>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script>
+			layui.use('table', function() {
+				var table = layui.table;
+				table.render({
+					elem: '#LAY_table',
+					url: '/mdgc/static/json/capital/supplier.js',
+					toolbar: '#toolbar', //开启头部工具栏，并为其绑定左侧模板
+					defaultToolbar: ['filter', 'exports', 'print'],
+					title: '订单表',
+					id: 'orderReload',
+					cols: [
+						[{
+							type: 'checkbox',
+							fixed: 'left'
+						}, {
+							field: 'id',
+							title: '序号',
+						}, {
+							field: 'create_time',
+							title: '提现申请时间',
+						}, {
+							field: 'balance',
+							title: '账户余额',
+						}, {
+							field: 'withdraw',
+							title: '提现金额',
+						}, {
+							field: 'way',
+							title: '提现方式'
+						}, {
+							field: 'audit_status',
+							title: '审核状态',
+							templet: '#auditStatusTpl'
+						}, {
+							field: 'audit_time',
+							title: '审核时间',
+						}, {
+							field: 'withdraw_status',
+							title: '提现状态',
+							templet: '#withdrawStatusTpl'
+						}, {
+							fixed: 'right',
+							title: '操作',
+							toolbar: '#opbar',
+							width: 150
+						}]
+					],
+					page: true
+				});
+
+
+
+				//监听行工具事件
+				table.on('tool(LAY_table)', function(obj) {
+					var data = obj.data;
+					if (obj.event === 'addremark') {
+						layer.msg('ID：' + data.id);
+					}
+				});
+			});
+		</script>
 	</body>
 </html>
