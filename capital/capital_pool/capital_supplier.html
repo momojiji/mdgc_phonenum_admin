@@ -10,8 +10,7 @@
 		<link rel="stylesheet" href="../../static/style/admin.css" media="all">
 		<style>
 			.account_info {
-				height: 230px;
-				line-height: 140px;
+				line-height: 136px;
 			}
 		</style>
 	</head>
@@ -29,37 +28,37 @@
 											<li class="layui-col-xs6">
 												<a class="layadmin-backlog-body">
 													<h3>累计收入</h3>
-													<p><cite>660000</cite></p>
+													<p><cite>300000</cite></p>
 												</a>
 											</li>
 											<li class="layui-col-xs6">
 												<a class="layadmin-backlog-body">
 													<h3>累计支出</h3>
-													<p><cite>660000</cite></p>
+													<p><cite>300000</cite></p>
 												</a>
 											</li>
 											<li class="layui-col-xs6">
 												<a class="layadmin-backlog-body">
 													<h3>本年度收入</h3>
-													<p><cite>660000</cite></p>
+													<p><cite>300000</cite></p>
 												</a>
 											</li>
 											<li class="layui-col-xs6">
 												<a class="layadmin-backlog-body">
-													<h3>本年度支出</h3>
-													<p><cite>660000</cite></p>
+													<h3>累计支出</h3>
+													<p><cite>300000</cite></p>
 												</a>
 											</li>
 											<li class="layui-col-xs6">
 												<a class="layadmin-backlog-body">
 													<h3>本月收入</h3>
-													<p><cite>660000</cite></p>
+													<p><cite>300000</cite></p>
 												</a>
 											</li>
 											<li class="layui-col-xs6">
 												<a class="layadmin-backlog-body">
-													<h3>本月支出</h3>
-													<p><cite>660000</cite></p>
+													<h3>累计支出</h3>
+													<p><cite>300000</cite></p>
 												</a>
 											</li>
 										</ul>
@@ -71,15 +70,15 @@
 							<div class="layui-card">
 								<div class="account_info">
 									<div class="box" style="font-size: 50px; ">
-										<label style="color: #EEE008;">账户余额：</label>100000元
-										<button type="button" class="layui-btn layui-btn-danger layui-btn-fluid">申请提现</button>
+										<label style="color: #EEE008;">账户余额：</label>66666666元
+										<button type="button" class="layui-btn layui-btn-danger layui-btn-fluid" onclick="applyWithdrawal()">申请提现</button>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="layui-card">
+				<div class="layui-card layui-col-md12">
 					<div class="layui-form layui-card-header layuiadmin-card-header-auto">
 						<div class="layui-form-item table-search-form">
 						</div>
@@ -158,8 +157,6 @@
 					page: true
 				});
 
-
-
 				//监听行工具事件
 				table.on('tool(LAY_table)', function(obj) {
 					var data = obj.data;
@@ -168,6 +165,16 @@
 					}
 				});
 			});
+			
+			function applyWithdrawal(){
+				layer.open({
+					type: 2,
+					title: '申请提现',
+					content: 'withdrawal_Form.html',
+					maxmin: true,
+					area: ['50%', '600px']
+				});
+			}
 		</script>
 	</body>
 </html>

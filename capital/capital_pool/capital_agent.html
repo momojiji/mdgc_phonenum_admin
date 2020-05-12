@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>资金池-供应商</title>
+		<title>资金池-代理商</title>
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -10,8 +10,7 @@
 		<link rel="stylesheet" href="../../static/style/admin.css" media="all">
 		<style>
 			.account_info {
-				height: 230px;
-				line-height: 140px;
+				line-height: 136px;
 			}
 		</style>
 	</head>
@@ -29,37 +28,37 @@
 											<li class="layui-col-xs6">
 												<a class="layadmin-backlog-body">
 													<h3>累计收入</h3>
-													<p><cite>660000</cite></p>
+													<p><cite>60000</cite></p>
 												</a>
 											</li>
 											<li class="layui-col-xs6">
 												<a class="layadmin-backlog-body">
 													<h3>累计支出</h3>
-													<p><cite>660000</cite></p>
+													<p><cite>60000</cite></p>
 												</a>
 											</li>
 											<li class="layui-col-xs6">
 												<a class="layadmin-backlog-body">
 													<h3>本年度收入</h3>
-													<p><cite>660000</cite></p>
+													<p><cite>60000</cite></p>
 												</a>
 											</li>
 											<li class="layui-col-xs6">
 												<a class="layadmin-backlog-body">
 													<h3>本年度支出</h3>
-													<p><cite>660000</cite></p>
+													<p><cite>60000</cite></p>
 												</a>
 											</li>
 											<li class="layui-col-xs6">
 												<a class="layadmin-backlog-body">
 													<h3>本月收入</h3>
-													<p><cite>660000</cite></p>
+													<p><cite>60000</cite></p>
 												</a>
 											</li>
 											<li class="layui-col-xs6">
 												<a class="layadmin-backlog-body">
 													<h3>本月支出</h3>
-													<p><cite>660000</cite></p>
+													<p><cite>60000</cite></p>
 												</a>
 											</li>
 										</ul>
@@ -72,14 +71,14 @@
 								<div class="account_info">
 									<div class="box" style="font-size: 50px; ">
 										<label style="color: #EEE008;">账户余额：</label>66666666元
-										<button type="button" class="layui-btn layui-btn-danger layui-btn-fluid">申请提现</button>
+										<button type="button" class="layui-btn layui-btn-danger layui-btn-fluid" onclick="applyWithdrawal()">申请提现</button>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="layui-card">
+				<div class="layui-card layui-col-md12">
 					<div class="layui-form layui-card-header layuiadmin-card-header-auto">
 						<div class="layui-form-item table-search-form">
 						</div>
@@ -166,6 +165,16 @@
 					}
 				});
 			});
+			
+			function applyWithdrawal(){
+				layer.open({
+					type: 2,
+					title: '申请提现',
+					content: 'withdrawal_Form.html',
+					maxmin: true,
+					area: ['50%', '600px']
+				});
+			}
 		</script>
 	</body>
 </html>
