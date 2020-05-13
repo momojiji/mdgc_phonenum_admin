@@ -42,118 +42,131 @@
 					<button type="button" class="layui-btn layui-btn-primary">我的号码</button>
 				</div>
 				<div class="layui-form layui-card-header layuiadmin-card-header-auto">
-
 					<div class="layui-form-item table-search-form">
-						<div class="layui-inline">
-							<label class="layui-form-label">归属地</label>
-							<div class="layui-input-block">
-								<div class="layui-input-inline">
-									<select name="province" id="province" lay-verify="required" lay-search lay-filter="province">
-										<option value="">全部省份</option>
-									</select>
-								</div>
-								<div class="layui-input-inline">
-									<select name="city" id="city" lay-verify="required" lay-search lay-filter="city">
-										<option value="">全部市</option>
-									</select>
-								</div>
-							</div>
-						</div>
-
-						<div class="layui-inline">
-							<label class="layui-form-label">运营商</label>
-							<div class="layui-input-inline">
-								<select name="search_operator" id="search_operator" lay-search="">
-									<option value="">全部</option>
-									<option value="1">运营商1</option>
-									<option value="2">运营商2</option>
-
-								</select>
-							</div>
-						</div>
-						<div class="layui-inline">
-							<label class="layui-form-label">供应商</label>
-							<div class="layui-input-inline">
-								<select name="search_supplier" id="search_supplier" lay-search="">
-									<option value="">全部</option>
-									<option value="1">供应商1</option>
-									<option value="2">供应商2</option>
-								</select>
-							</div>
-						</div>
-
-						<div class="layui-inline">
-							<label class="layui-form-label">售价</label>
-							<div class="layui-input-inline" style="width: 100px;">
-								<input type="text" name="search_price_min" id="search_price_min" placeholder="最低价" autocomplete="off" class="layui-input">
-							</div>
-							<div class="layui-form-mid">-</div>
-							<div class="layui-input-inline" style="width: 100px;">
-								<input type="text" name="search_price_max" id="search_price_max" placeholder="最高价" autocomplete="off" class="layui-input">
-							</div>
-						</div>
-
-						<div class="layui-inline">
-							<label class="layui-form-label">录入时间</label>
-							<div class="layui-input-inline">
-								<input type="text" class="layui-input" id="search_create_time" name="search_create_time" placeholder="开始日期 - 结束日期 ">
-							</div>
-						</div>
-
-						<div class="layui-inline">
-							<label class="layui-form-label">批次号</label>
-							<div class="layui-input-inline">
-								<input type="text" name="search_batch_id" id="search_batch_id" autocomplete="off" placeholder="请输入批次号" class="layui-input">
-							</div>
-						</div>
-
-						<div class="layui-inline">
-							<label class="layui-form-label">交易类型</label>
-							<div class="layui-input-inline">
-								<select name="search_dealtype" id="search_dealtype" lay-search="">
-									<option value="">全部</option>
-									<option value="1">租</option>
-									<option value="2">售</option>
-								</select>
-							</div>
-						</div>
-
-						<div class="layui-inline">
-							<label class="layui-form-label">模糊搜索</label>
-							<div class="layui-input-inline" style="width: 300px;">
-								<input type="text" name="search_fuzzy" id="search_fuzzy" placeholder="号码中包含的数字" autocomplete="off" class="layui-input">
-							</div>
-						</div>
-
-						<div class="layui-inline">
-							<label class="layui-form-label">精确搜索</label>
-							<div class="layui-input-inline">
-								<div class="kuangs">
-									<label><input name="kuang1" tabindex="1" type="text" class="dingwei" value="1" size="1" maxlength="1"></label>
-									<label><input name="kuang2" tabindex="2" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)"></label>
-									<label><input name="kuang3" tabindex="3" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)"></label>
-									-
-									<label>
-										<input name="kuang4" tabindex="4" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)">
-									</label>
-									<label>
-										<input name="kuang5" tabindex="5" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)">
-									</label>
-									<label><input name="kuang6" tabindex="6" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)"></label>
-									<label><input name="kuang7" tabindex="7" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)"></label>
-									-
-									<label><input name="kuang8" tabindex="8" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)"></label>
-									<label><input name="kuang9" tabindex="9" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)"></label>
-									<label><input name="kuang10" tabindex="10" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)"></label>
-									<label><input name="kuang11" tabindex="11" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)"></label>
-									<input type="hidden" name="search_precise" id="search_precise" value="" />
-								</div>
-							</div>
-						</div>
-
-
-						<div class="layui-block">
-							<button class="layui-btn" id="search-btn" data-type="reload">搜索</button>
+						<div class="layui-row">
+						  <div class="layui-col-md4">
+						    <div class="layui-inline">
+						    	<label class="layui-form-label">归属地</label>
+						    	<div class="layui-input-block">
+						    		<div class="layui-input-inline">
+						    			<select name="province" id="province" lay-verify="required" lay-search lay-filter="province">
+						    				<option value="">全部省份</option>
+						    			</select>
+						    		</div>
+						    		<div class="layui-input-inline">
+						    			<select name="city" id="city" lay-verify="required" lay-search lay-filter="city">
+						    				<option value="">全部市</option>
+						    			</select>
+						    		</div>
+						    	</div>
+						    </div>
+						  </div>
+						  <div class="layui-col-md3">
+						    <div class="layui-inline">
+						    	<label class="layui-form-label">运营商</label>
+						    	<div class="layui-input-inline">
+						    		<select name="search_operator" id="search_operator" lay-search="">
+						    			<option value="">全部</option>
+						    			<option value="1">运营商1</option>
+						    			<option value="2">运营商2</option>
+						    
+						    		</select>
+						    	</div>
+						    </div>
+						  </div>
+						  <div class="layui-col-md3">
+						    <div class="layui-inline">
+						    	<label class="layui-form-label">供应商</label>
+						    	<div class="layui-input-inline">
+						    		<select name="search_supplier" id="search_supplier" lay-search="">
+						    			<option value="">全部</option>
+						    			<option value="1">供应商1</option>
+						    			<option value="2">供应商2</option>
+						    		</select>
+						    	</div>
+						    </div>
+						  </div>
+						  <div class="layui-col-md4">
+						    <div class="layui-inline">
+						    	<label class="layui-form-label">售价</label>
+						    	<div class="layui-input-inline" style="width: 100px;">
+						    		<input type="text" name="search_price_min" id="search_price_min" placeholder="最低价" autocomplete="off" class="layui-input">
+						    	</div>
+						    	<div class="layui-form-mid">-</div>
+						    	<div class="layui-input-inline" style="width: 100px;">
+						    		<input type="text" name="search_price_max" id="search_price_max" placeholder="最高价" autocomplete="off" class="layui-input">
+						    	</div>
+						    </div>
+						  </div>
+						  <div class="layui-col-md3">
+						    <div class="layui-inline">
+						    	<label class="layui-form-label">录入时间</label>
+						    	<div class="layui-input-inline">
+						    		<input type="text" class="layui-input" id="search_create_time" name="search_create_time" placeholder="开始日期 - 结束日期 ">
+						    	</div>
+						    </div>
+						  </div>
+						  <div class="layui-col-md3">
+						    <div class="layui-inline">
+						    	<label class="layui-form-label">批次号</label>
+						    	<div class="layui-input-inline">
+						    		<input type="text" name="search_batch_id" id="search_batch_id" placeholder="请输入批次号" autocomplete="off" class="layui-input">
+						    	</div>
+						    </div>
+						  </div>
+						  <div class="layui-col-md4">
+						    <div class="layui-inline">
+						    	<label class="layui-form-label">交易类型</label>
+						    	<div class="layui-input-inline">
+						    		<select name="search_dealtype" id="search_dealtype" lay-search="">
+						    			<option value="">全部</option>
+						    			<option value="1">租</option>
+						    			<option value="2">售</option>
+						    		</select>
+						    	</div>
+						    </div>
+						  </div>
+						  <div class="layui-col-md3">
+						    
+						    <div class="layui-inline">
+						    	<label class="layui-form-label">模糊搜索</label>
+						    	<div class="layui-input-inline">
+						    		<input type="text" name="search_fuzzy" id="search_fuzzy" placeholder="号码中包含的数字" autocomplete="off" class="layui-input">
+						    	</div>
+						    </div>
+						  </div>
+						  <div class="layui-col-md3">
+						    <div class="layui-inline">
+						    	<label class="layui-form-label">精确搜索</label>
+						    	<div class="layui-input-inline">
+						    		<div class="kuangs">
+						    			<label><input name="kuang1" tabindex="1" type="text" class="dingwei" value="1" size="1" maxlength="1"></label>
+						    			<label><input name="kuang2" tabindex="2" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)"></label>
+						    			<label><input name="kuang3" tabindex="3" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)"></label>
+						    			-
+						    			<label>
+						    				<input name="kuang4" tabindex="4" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)">
+						    			</label>
+						    			<label>
+						    				<input name="kuang5" tabindex="5" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)">
+						    			</label>
+						    			<label><input name="kuang6" tabindex="6" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)"></label>
+						    			<label><input name="kuang7" tabindex="7" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)"></label>
+						    			-
+						    			<label><input name="kuang8" tabindex="8" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)"></label>
+						    			<label><input name="kuang9" tabindex="9" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)"></label>
+						    			<label><input name="kuang10" tabindex="10" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)"></label>
+						    			<label><input name="kuang11" tabindex="11" type="text" class="dingwei" value="" size="1" maxlength="1" onkeyup="wirtehidden(this,this.value)"></label>
+						    			<input type="hidden" name="search_precise" id="search_precise" value="" />
+						    		</div>
+						    	</div>
+						    </div>
+						  </div>
+						  <div class="layui-col-md1">
+						    <div class="layui-block">
+						    	<button class="layui-btn" id="search-btn" data-type="reload">搜索</button>
+						    </div>
+						  </div>
 						</div>
 					</div>
 				</div>
