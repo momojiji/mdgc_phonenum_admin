@@ -326,7 +326,13 @@
 					var checkStatus = table.checkStatus(obj.config.id);
 					switch (obj.event) {
 						case 'addnumber':
-							layer.msg('点击了新增号码');
+							layer.open({
+								type: 2,
+								title: '单个添加号码',
+								content: 'addnumber.html',
+								maxmin: true,
+								area: ['40%', '600px']
+							});
 							break;
 						case 'importnumber':
 							layer.open({

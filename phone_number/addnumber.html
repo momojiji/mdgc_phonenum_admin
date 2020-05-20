@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>单个添加号码</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+		<link rel="stylesheet" href="../static/style/admin.css" media="all">
+	</head>
+	<body>
+		<form class="layui-form" action="">
+			<div class="layui-fluid">
+				<div class="layui-row layui-col-space15">
+					<div class="layui-col-md12">
+						<div class="layui-card">
+							<div class="layui-card-body" pad15>
+
+								<div class="layui-form" wid100 lay-filter="">
+									<div class="layui-form-item">
+										<label class="layui-form-label">运营商</label>
+										<div class="layui-input-inline">
+											<select name="operator" id="operator" lay-search="">
+												<option value="1">移动</option>
+												<option value="2">联通</option>
+												<option value="3">电信</option>
+											</select>
+										</div>
+									</div>
+									<div class="layui-form-item">
+										<label class="layui-form-label">号码</label>
+										<div class="layui-input-block">
+											<input type="text" name="number" id="number" placeholder="请输入手机号码" value="" class="layui-input">
+										</div>
+									</div>
+									<div class="layui-form-item">
+										<label class="layui-form-label">归属地</label>
+										<div class="layui-input-block">
+											<div class="layui-input-inline">
+												<select name="province" id="province" lay-search lay-filter="province">
+													<option value="">全部省份</option>
+												</select>
+											</div>
+											<div class="layui-input-inline">
+												<select name="city" id="city" lay-search lay-filter="city">
+													<option value="">全部市</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="layui-form-item">
+										<label class="layui-form-label">底价</label>
+										<div class="layui-input-block">
+											<input type="text" name="floor_price" id="floor_price" placeholder="请输入价格" value="" class="layui-input">
+										</div>
+									</div>
+									<div class="layui-form-item">
+										<label class="layui-form-label">售价</label>
+										<div class="layui-input-block">
+											<input type="text" name="sell_price" id="sell_price" placeholder="自动生成" value="" class="layui-input">
+										</div>
+									</div>
+
+									<div class="layui-form-item">
+										<label class="layui-form-label">交易类型</label>
+										<div class="layui-input-inline">
+											<select name="type" id="type" lay-search="">
+												<option value="1">租</option>
+												<option value="2">售</option>
+											</select>
+										</div>
+									</div>
+									<div class="layui-form-item">
+										<label class="layui-form-label">套餐描述</label>
+										<div class="layui-input-block">
+											<textarea placeholder="套餐资费说明" class="layui-textarea" name="desc" id="desc"></textarea>
+										</div>
+									</div>
+
+									<div class="layui-form-item">
+										<div class="layui-input-block">
+											<button class="layui-btn" lay-submit lay-filter="add_btn">保存</button>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</form>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="../static/layui/layui.js"></script>
+		<script src="../static/lib/citydata.js"></script>
+
+		<script>
+			layui.use(['layer', 'form', 'upload'], function() {
+				var layer = layui.layer,
+					form = layui.form,
+					upload = layui.upload;
+				//监听提交
+				//在编辑时，会多传一个id
+				form.on('submit(add_btn)', function(formdata) {
+					console.log(formdata.field);
+					$.ajax({
+						url: "/mdgc/static/json/order/platform_statistics_agent_sales_list.js",
+						type: 'get', //真实数据，请改为post请求
+						data: formdata.field, 
+						dataType: 'json',
+						success: function(res) {
+							console.log(res);
+							window.parent.location.reload(); //成功后刷新父页面
+						}
+					});
+				});
+			})
+
+			layui.use('form', function() {
+				var form = layui.form;
+				var province = $("#province"),
+					city = $("#city"),
+					district = $("#district");
+
+				//初始将省份数据赋予
+				for (var i = 1; i < cityData.length; i++) {
+					if (cityData[i].parentId == 100000) {
+						addEle(province, cityData[i]);
+					}
+				}
+
+				//赋予完成 重新渲染select
+				form.render('select');
+
+				//向select中 追加内容
+				function addEle(ele, value) {
+					var optionStr = "";
+					optionStr = "<option value=" + value.id + " >" + value.name + "</option>";
+					ele.append(optionStr);
+				}
+
+				//移除select中所有项 赋予初始值
+				function removeEle(ele) {
+					ele.find("option").remove();
+					var optionStar = "<option value=" + "0" + ">" + "请选择" + "</option>";
+					ele.append(optionStar);
+				}
+				var provinceId;
+				//选定省份后 将该省份的数据读取追加上
+				form.on('select(province)', function(data) {
+					provinceId = data.value;
+
+					removeEle(city);
+
+					$.each(cityData, function(i, item) {
+						if (provinceId == item.parentId) {
+							addEle(city, item);
+						}
+					});
+					//重新渲染select 
+					form.render('select');
+				})
+			})
+		</script>
+	</body>
+</html>
