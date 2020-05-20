@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>批量导入</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+		<link rel="stylesheet" href="../static/style/admin.css" media="all">
+		<style>
+			.redtext{
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<form class="layui-form" action="">
+			<div class="layui-fluid">
+				<div class="layui-row layui-col-space15">
+					<div class="layui-col-md12">
+						<div class="layui-card">
+							<div class="layui-card-body" pad15>
+								<div class="layui-form-item">
+									<label class="layui-form-label layui-btn layui-btn-primary">手机号</label>
+									<div class="layui-input-block">
+										<a class="redtext" href="../static/aa.xlsx">号码导入模板.xlsx（点击下载）</a>
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label layui-btn layui-btn-primary">
+										选择文件
+									</label>
+									<div class="layui-input-block">
+										<button type="button" class="layui-btn  layui-btn-normal" id="checkfile"><i class="layui-icon"></i>选择文件</button>
+									</div>
+
+								</div>
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+										<button type="button" class="layui-btn" id="upfile">开始上传</button>
+									</div>
+								</div>
+								<blockquote class="layui-elem-quote layui-quote-nm">温馨提示：<br>
+									1、请下载号码导入模板，按照格式导入！当前最多可导入 <i class="redtext">5000</i>个号码<br>
+									2、其中分佣百分比不能低于 30 %，分佣的意思是您上架的号码会在共享号池显示，会有其他卡商分销自己的号码，此佣金是给分销者的佣金！<br>
+									3、自有号码平台不抽取任何服务费，您的号码如果被其他卡商在共享号池销售，平台将抽取 10%交易担保服务手续费。<br>
+									4、例如上架一个1000元的号码，若在共享池被其他卡商销售，卡商作为分销者，将得到300 元佣金，平台得到100 元交易担保服务手续费，您将获得600元售卡成本！<br></blockquote>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</form>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="../static/layui/layui.js"></script>
+		<script src="../static/lib/citydata.js"></script>
+
+		<script>
+			layui.use('upload', function() {
+				var $ = layui.jquery,
+					upload = layui.upload;
+				upload.render({
+					elem: '#checkfile',
+					url: '#', //改成您自己的上传接口
+					accept: 'file', //普通文件
+					exts: 'xlsx', //文件后缀
+					size: 3000, //限制文件大小，单位 KB
+					auto: false, //选完文件后不自动上传
+					bindAction: '#upfile',
+					done: function(res) {
+						layer.msg('上传成功');
+						console.log(res);
+					}
+				});
+
+			});
+		</script>
+	</body>
+</html>

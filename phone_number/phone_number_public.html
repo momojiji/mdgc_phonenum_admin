@@ -329,9 +329,13 @@
 							layer.msg('点击了新增号码');
 							break;
 						case 'importnumber':
-
-							layer.msg('点击了批量导入');
-							break;
+							layer.open({
+								type: 2,
+								title: '批量导入',
+								content: 'importnumber.html',
+								maxmin: true,
+								area: ['40%', '600px']
+							});
 					};
 				});
 			});
