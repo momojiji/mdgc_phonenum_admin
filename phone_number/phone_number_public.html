@@ -199,6 +199,10 @@
 		<script src="../static/layui/layui.js"></script>
 		<script src="../static/lib/citydata.js"></script>
 		<script>
+			function export_all(e){
+				alert(e);
+			}
+			
 			//精确搜索吧11个输入框的数字拼接起来
 			function wirtehidden(x, y) {
 				var vals = '';
@@ -223,7 +227,7 @@
 					elem: '#LAY_table_number',
 					url: '/mdgc/static/json/number/number.js',
 					toolbar: '#toolbar', //开启头部工具栏，并为其绑定左侧模板
-					defaultToolbar: ['filter', 'exports', 'print'],
+					defaultToolbar: ['exports','exportsall','filter', 'print'],
 					title: '订单表',
 					id: 'numberReload',
 					cols: [
@@ -392,6 +396,8 @@
 					form.render('select');
 				})
 			})
+			
+			
 		</script>
 	</body>
 </html>
