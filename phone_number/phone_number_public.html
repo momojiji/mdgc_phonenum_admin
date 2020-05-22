@@ -180,6 +180,7 @@
 					<div class="layui-btn-container">
 				    <button class="layui-btn layui-btn-sm" lay-event="addnumber">新增号码</button>
 				    <button class="layui-btn layui-btn-sm" lay-event="importnumber">号码批量导入</button>
+					<button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
 				  </div>
 				</script>
 
@@ -338,6 +339,14 @@
 								area: ['40%', '600px']
 							});
 							break;
+						case 'getCheckData':
+								var data = checkStatus.data;
+								var ids = []
+								$.each(data, function(p1, p2) {
+									ids.push(p2.id);
+								});
+								layer.alert(JSON.stringify(ids));
+							  break;
 						case 'importnumber':
 							layer.open({
 								type: 2,
