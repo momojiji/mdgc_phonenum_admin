@@ -69,7 +69,7 @@
 												</select>
 											</div>
 											<div class="layui-input-inline">
-												<select name="city" id="city"  lay-search lay-filter="city">
+												<select name="city" id="city" lay-search lay-filter="city">
 													<option value="">全部市</option>
 												</select>
 											</div>
@@ -187,30 +187,7 @@
 			});
 
 
-			var id = getQueryVariable("id");
-			//如果有id，那就代表修改，先获取原数据
-			if (id) {
-				$.ajax({
-					url: "/mdgc/static/json/order/platform_statistics_agent_sales_list.js", //TODO
-					type: 'get',
-					data: {
-						'id': id
-					},
-					dataType: 'json',
-					success: function(res) {
-						if (res.code == 0) {
-							//TODO 
-							$("#editid").val(id);
-							$("#shop_name").val("编辑编辑编辑");
-							$("#upload-img").attr("src",
-								"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1906469856,4113625838&fm=26&gp=0.jpg"); //这里是展示
-							$("#img").val(
-								"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1906469856,4113625838&fm=26&gp=0.jpg"); //这里是input
-							
-						}
-					}
-				});
-			}
+			
 			layui.use('form', function() {
 				var form = layui.form;
 				var province = $("#province"),
@@ -255,6 +232,39 @@
 					//重新渲染select 
 					form.render('select');
 				})
+				
+				//等城市下拉框渲染完在请求数据
+				var id = getQueryVariable("id");
+				//如果有id，那就代表修改，先获取原数据
+				if (id) {
+					$.ajax({
+						url: "/mdgc/static/json/order/platform_statistics_agent_sales_list.js", //TODO
+						type: 'get',
+						data: {
+							'id': id
+						},
+						dataType: 'json',
+						success: function(res) {
+							if (res.code == 0) {
+								//TODO 
+								$("#editid").val(id);
+								$("#shop_name").val("编辑编辑编辑");
+								$("#upload-img").attr("src",
+									"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1906469856,4113625838&fm=26&gp=0.jpg"); //这里是展示
+								$("#img").val(
+									"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1906469856,4113625838&fm=26&gp=0.jpg"); //这里是input
+				
+								
+								//城市下拉框选择，顺序要保证  省-市
+								var province_select = 'dd[lay-value=' + 330000 + ']';
+								$('#province').siblings("div.layui-form-select").find('dl').find(province_select).click();
+				
+								var city_select ='dd[lay-value=' + 330200 + ']';
+								$('#city').siblings("div.layui-form-select").find('dl').find(city_select).click();
+							}
+						}
+					});
+				}
 			})
 
 			function getQueryVariable(variable) {
@@ -268,6 +278,8 @@
 				}
 				return (false);
 			}
+			
+		
 		</script>
 	</body>
 </html>
