@@ -84,6 +84,7 @@
 						}, {
 							field: 'sort',
 							title: '排序',
+							edit: 'text'
 						}, {
 							field: 'isshow',
 							title: '是否展示',
@@ -143,6 +144,13 @@
 						});
 					}
 				});
+				 //监听单元格编辑
+				  table.on('edit(LAY_table_custom-menu)', function(obj){
+				    var value = obj.value //得到修改后的值
+				    ,data = obj.data //得到所在行所有键值
+				    ,field = obj.field; //得到字段
+				    layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
+				  });
 				//监听是否显示
 				form.on('switch(isshowdemo)', function(obj) {
 					//TODO   del
@@ -167,6 +175,8 @@
 						}
 					});
 				});
+				
+				
 			});
 		    function add(){
 				layer.open({
