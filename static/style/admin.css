@@ -949,6 +949,12 @@ html {
 	margin-bottom: 10px;
 	overflow: hidden
 }
+.layuiadmin-card-text .layui-text-center-smallline {
+	height: 44px;
+	line-height: 22px;
+	margin-bottom: -8px;
+	overflow: hidden
+}
 
 .layuiadmin-card-text .layui-text-bottom {
 	position: relative
@@ -1409,3 +1415,4 @@ html {
 .roundness-img {
 	border-radius: 50%;
 }
+
