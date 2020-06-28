@@ -8,9 +8,112 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
 		<link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
 		<link rel="stylesheet" href="../static/style/admin.css" media="all">
+		<link rel="stylesheet" href="../static/css/style.min862f.css" media="all">
 	</head>
 	<body>
 		<div class="layui-fluid">
+			<div class="layui-col-md12">
+				<div class="layui-card">
+					<div class="layui-card-header">系统公告</div>
+					<div class="layui-card-body">
+						<ul id="nt-example1">
+							<li>
+								<h3>1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</h3>
+							</li>
+							<li>
+								<h3>2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222</h3>
+							</li>
+							<li>
+								<h3>3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333</h3>
+							</li>
+							<li>
+								<h3>4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444</h3>
+							</li>
+							<li>
+								<h3>55555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555</h3>
+							</li>
+							<li>
+								<h3>66666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666</h3>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="layui-row layui-col-space15">
+				<div class="layui-col-sm1 layui-col-md1">
+				</div>
+				<div class="layui-col-sm2 layui-col-md2">
+					<div class="widget style1 red-bg">
+						<h2> 号码数量 </h2>
+						<br>
+						<div class="layui-row">
+							<div class="layui-col-xs4">
+								<i class="fa fa-floppy-o fa-3x"></i>
+							</div>
+							<div class="layui-col-xs8 text-right">
+								<h2 class="font-bold">68812</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-col-sm2 layui-col-md2">
+					<div class="widget style1 violet-bg">
+						<h2> 代理数量 </h2>
+						<br>
+						<div class="layui-row">
+							<div class="layui-col-xs4">
+								<i class="fa fa-user-o fa-3x"></i>
+							</div>
+							<div class="layui-col-xs8 text-right">
+								<h2 class="font-bold">68</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-col-sm2 layui-col-md2">
+					<div class="widget style1 yellow-bg">
+						<h2> 访客数量 </h2>
+						<br>
+						<div class="layui-row">
+							<div class="layui-col-xs4">
+								<i class="fa fa-users fa-3x"></i>
+							</div>
+							<div class="layui-col-xs8 text-right">
+								<h2 class="font-bold">88</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-col-sm2 layui-col-md2">
+					<div class="widget style1 amaranth-bg">
+						<h2> 订单数量 </h2>
+						<br>
+						<div class="layui-row">
+							<div class="layui-col-xs4">
+								<i class="fa fa-envelope-o fa-3x"></i>
+							</div>
+							<div class="layui-col-xs8 text-right">
+								<h2 class="font-bold">58</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-col-sm2 layui-col-md2">
+					<div class="widget style1 viridis-bg">
+						<h2> 成交数额 </h2>
+						<br>
+						<div class="layui-row">
+							<div class="layui-col-xs4">
+								<i class="fa fa fa-usd fa-3x"></i>
+							</div>
+							<div class="layui-col-xs8 text-right">
+								<h2 class="font-bold">8595</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<div class="layui-card">
 				<div class="layui-card-body">
 					<div class="layui-row" style="text-align: center;">
@@ -161,7 +264,15 @@
 		<script src="../static/layui/layui.js?t=1"></script>
 		<script src="../static/js/fa.js"></script>
 		<script src="http://cdn.highcharts.com.cn/highcharts/highcharts.js"></script>
+		<script src="../static/js/jquery.min.js"></script>
+		<script src="../static/js/jquery.newsTicker.min.js"></script>
 		<script>
+			$('#nt-example1').newsTicker({
+				row_height: 20,
+				max_rows: 4,
+				duration: 1000
+			});
+
 			var pv_data = {
 				"date": [
 					"2020/05/01",
