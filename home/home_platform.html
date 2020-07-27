@@ -368,37 +368,71 @@
 					data: order_data.num
 				}]
 			});
-			//近7日用户访问趋势变化
-			Highcharts.chart('pv_container', {
-				chart: {
-					type: 'line'
-				},
-				colors: ['#ff5500'],
-				title: {
-					text: '近7日用户访问趋势变化'
-				},
-				xAxis: {
-					categories: pv_data.date
-				},
-				yAxis: {
+			
+			//初始化图表数据
+			pv_container_func(pv_data);
+			
+			
+			//每一个渲染图表都放在一个方法中等待合适时机调用
+			function pv_container_func(pv_data){
+				//近7日用户访问趋势变化
+				Highcharts.chart('pv_container', {
+					chart: {
+						type: 'line'
+					},
+					colors: ['#ff5500'],
 					title: {
-						text: '数量'
-					}
-				},
-				plotOptions: {
-					line: {
-						dataLabels: {
-							enabled: true // 开启数据标签         
-						},
-						enableMouseTracking: false // 关闭鼠标跟踪，对应的提示框、点击事件会失效
-					}
-				},
-				series: [{
-					name: '近7日用户访问趋势变化',
-					data: pv_data.num
-				}]
-			});
-
+						//加粗
+						text: '<strong>近7日用户访问趋势变化</strong>'
+					},
+					subtitle: {
+						useHTML: true,
+						align: 'right',
+						text: '<select id="pv_container_select"><option value ="1">近七天</option><option value ="2">近十五天</option><option value="3">近三十天</option></select>'
+					},
+					xAxis: {
+						categories: pv_data.date
+					},
+					yAxis: {
+						title: {
+							text: '数量'
+						}
+					},
+					plotOptions: {
+						line: {
+							dataLabels: {
+								enabled: true // 开启数据标签         
+							},
+							enableMouseTracking: false // 关闭鼠标跟踪，对应的提示框、点击事件会失效
+						}
+					},
+					series: [{
+						name: '近7日用户访问趋势变化',
+						data: pv_data.num
+					}]
+				});
+				
+			}
+			//下拉框选择时，异步请求
+			$("#pv_container_select").change(function(){
+				console.log($(this).val());
+				//ajax请求后端接口得到筛选后的数据
+				var pv_data = {
+					"date": [
+						"2020/05/01",
+						"2020/05/02",
+						"2020/05/03",
+						"2020/05/04",
+						"2020/05/05",
+						"2020/05/06",
+						"2020/05/07"
+					],
+					"num": [30, 50, 100, 120, 100, 150, 50]
+				};
+				//再次调用方法渲染图表
+				pv_container_func(pv_data)
+			})
+			
 			// 号码段
 			Highcharts.chart('haomaprice_container', {
 				chart: {
@@ -481,6 +515,7 @@
 			}).extend({
 				index: 'lib/index' //主入口模块
 			}).use(['index', 'console']);
+		
 		</script>
 
 
